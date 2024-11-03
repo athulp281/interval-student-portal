@@ -12,12 +12,12 @@ function Home() {
   const data = "tokenActive";
   const user = localStorage.getItem("user");
   useEffect(() => {
-    if (!user) {
+    if (user) {
       router.push(pathname);
       setLayout({ auth: false, dashboard: true });
     } else {
       setTimeout(() => {
-        router.replace(PATH_AUTH.login);
+        router.push(PATH_AUTH.landing);
         setLayout({ auth: true, dashboard: false });
       }, 7000);
     }

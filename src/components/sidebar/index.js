@@ -19,7 +19,7 @@ export default function Index({ children }) {
   const user = localStorage.getItem("user");
 
   useEffect(() => {
-    if (!user) {
+    if (user) {
       router.push(PATH_DASHBOARD.dashboard);
       setLayout({ auth: false, dashboard: true });
     } else {

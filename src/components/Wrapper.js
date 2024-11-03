@@ -32,7 +32,7 @@ const Wrapper = ({ title, children }) => {
   const [layout, setLayout] = useState(null);
 
   useEffect(() => {
-    if (!user) {
+    if (user) {
       router.push(pathname);
       setLayout({ auth: false, dashboard: true });
     } else {

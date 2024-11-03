@@ -12,13 +12,13 @@ function AuthLayout({ children }) {
   const [layout, setLayout] = useState(null);
 
   useEffect(() => {
-    if (!user) {
+    if (user) {
       router.push(PATH_DASHBOARD.dashboard);
       setLayout({ auth: false, dashboard: true });
     } else if (pathname === PATH_AUTH.login) {
       setLayout({ auth: true, dashboard: false });
     } else {
-      router.push(PATH_AUTH.login);
+      router.push(PATH_AUTH.landing);
       setLayout({ auth: true, dashboard: false });
     }
   }, [user]);
