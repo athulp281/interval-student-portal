@@ -113,6 +113,7 @@ const ImageSlider = () => {
         ))}
       </Stack>
       {/* --------------------------------------------- */}
+
       <Box
         sx={{
           width: "100%",
@@ -132,12 +133,20 @@ const ImageSlider = () => {
           textShadow: "1px 1px 4px rgba(0, 0, 0, 0.7)",
         }}
       >
+        {/* <motion.div
+          animate={{ y: [0, -10, 0] }} // Move up and down
+          transition={{
+            duration: 2,
+            ease: "easeInOut",
+            repeat: Infinity,
+          }}
+        > */}
         <Box sx={{ padding: 1, borderRadius: 4 }}>
           <Box padding={1}>
             <Typography sx={{ fontSize: 10 }}>CEO's Quotes</Typography>
           </Box>
+
           <Stack direction={"row"} spacing={1}>
-            {" "}
             <Box>
               <Avatar
                 sx={{ width: 40, height: 40 }}
@@ -155,6 +164,7 @@ const ImageSlider = () => {
             </Box>
           </Stack>
         </Box>
+        {/* </motion.div> */}
       </Box>
     </Box>
   );

@@ -64,9 +64,18 @@ const RightSection = () => {
               background: `linear-gradient(to right, #F4F6FF 0%, #F4F6FF 10%, #b85fd3 100%)`,
             }}
           >
-            <Box sx={{ padding: 3 }}>
-              <ImageSlider />
-            </Box>
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{
+                duration: 2,
+                ease: "easeInOut",
+                repeat: Infinity,
+              }}
+            >
+              <Box sx={{ padding: 3 }}>
+                <ImageSlider />
+              </Box>
+            </motion.div>
           </Paper>
         </Box>
       </motion.div>
