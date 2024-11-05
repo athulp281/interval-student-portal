@@ -1,7 +1,5 @@
-// components/ImageSlider.js
 import { useState, useEffect } from "react";
 import { Avatar, Box, IconButton, Stack, Typography } from "@mui/material";
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -56,10 +54,10 @@ const ImageSlider = () => {
           transition={{ duration: 0.5 }}
           style={{
             position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
+            top: 20,
+            left: 20,
+            width: 500,
+            height: 500,
           }}
         >
           <Box>
@@ -79,9 +77,9 @@ const ImageSlider = () => {
         spacing={1}
         sx={{
           position: "absolute",
-          right: "10px", // Position to the right side
-          top: "50%", // Center vertically
-          transform: "translateY(-50%)", // Adjust for vertical centering
+          right: "10px",
+          top: "50%",
+          transform: "translateY(-50%)",
         }}
       >
         {images.map((_, index) => (
@@ -105,9 +103,9 @@ const ImageSlider = () => {
                 width: 15,
                 height: 15,
                 borderRadius: "50%",
-                backgroundColor: "white", // Change color based on active index
+                backgroundColor: "white",
                 transition: "background-color 0.3s",
-                cursor: "pointer", // Change cursor to pointer for better UX
+                cursor: "pointer",
               }}
               onClick={() => setCurrentIndex(index)} // Allow clicking on dots to change slides
             />
@@ -122,16 +120,16 @@ const ImageSlider = () => {
           bottom: 0,
           left: "50%",
           transform: "translateX(-50%)",
-          background: "rgba(0, 0, 0, 0.1)", // Darker transparent background for glassmorphism
-          borderTopLeftRadius: "16px", // Rounded top-left corner
-          borderTopRightRadius: "30px", // Rounded top-right corner
-          borderBottomRightRadius: "60px", // Rounded bottom-right corner
-          borderBottomLeftRadius: "5px", // No rounding for bottom-left corner
-          padding: "2px", // Space inside the box
-          backdropFilter: "blur(10px)", // Blur effect for the background
-          color: "white", // White text color for better contrast
-          border: "1px solid rgba(255, 255, 255, 0.2)", // Optional border for more definition
-          textShadow: "1px 1px 4px rgba(0, 0, 0, 0.7)", // Stronger black shadow effect for text
+          background: "rgba(0, 0, 0, 0.1)",
+          borderTopLeftRadius: "16px",
+          borderTopRightRadius: "30px",
+          borderBottomRightRadius: "60px",
+          borderBottomLeftRadius: "5px",
+          padding: "2px",
+          backdropFilter: "blur(10px)",
+          color: "white",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          textShadow: "1px 1px 4px rgba(0, 0, 0, 0.7)",
         }}
       >
         <Box sx={{ padding: 1, borderRadius: 4 }}>
