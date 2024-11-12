@@ -21,28 +21,30 @@ const RightSection = () => {
       <motion.div
         initial={{ y: 0 }}
         animate={{ y: "-100%" }}
-        transition={{ duration: 1.2, ease: "easeInOut", delay: 0.4 }}
+        transition={{ duration: 1.2, ease: "easeInOut", delay: 1.1 }}
         style={{
           position: "absolute",
           top: 0,
+          borderRadius: 5,
+          borderTopLeftRadius: 180,
           left: 0,
           width: "100%",
           height: "50vh",
-          backgroundColor: "#ffffff",
+          backgroundColor: "#f9fafb",
           zIndex: 2,
         }}
       />
       <motion.div
         initial={{ y: 0 }}
         animate={{ y: "100%" }}
-        transition={{ duration: 1.2, ease: "easeInOut", delay: 0.4 }}
+        transition={{ duration: 1.2, ease: "easeInOut", delay: 1.1 }}
         style={{
           position: "absolute",
           bottom: 0,
           left: 0,
           width: "100%",
           height: "50vh",
-          backgroundColor: "#ffffff",
+          backgroundColor: "#f9fafb",
           zIndex: 2,
         }}
       />

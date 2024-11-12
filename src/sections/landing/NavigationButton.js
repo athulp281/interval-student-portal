@@ -1,8 +1,14 @@
 import { Icon } from "@iconify/react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { PATH_DASHBOARD, PATH_AUTH } from "@/route/paths";
 
 const NavigationButton = () => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(PATH_AUTH.login);
+  };
   return (
     <Box>
       <Box
@@ -27,6 +33,7 @@ const NavigationButton = () => {
           </Box>
           <Box pt={0.3} pl={1.7}>
             <Button
+              onClick={handleClick}
               sx={{
                 backgroundColor: "white",
                 color: "#0089d0",
