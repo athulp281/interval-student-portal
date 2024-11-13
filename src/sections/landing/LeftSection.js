@@ -6,7 +6,14 @@ import NavigationButton from "./NavigationButton";
 import LogoHeader from "./LogoHeader";
 import { ReactTyped } from "react-typed";
 import Image from "next/image";
+import StatsCard from "@/components/StatsCard";
 
+const statsData = [
+  { value: "54+", label: "Countries We Serve", color: "#26A69A" }, // Medium Teal
+  { value: "40K+", label: "Total Students Enrolled", color: "#EF5350" }, // Medium Red
+  { value: "1M+", label: "Total Class Hours", color: "#AB47BC" }, // Medium Purple
+  { value: "5K+", label: "Total Strength", color: "#FFA726" }, // Medium Orange
+];
 // Define animations with different directions and a 5-second delay before starting
 const boxVariants = {
   left: {
@@ -139,14 +146,14 @@ const LeftSection = () => {
           animate="animate"
           variants={boxVariants.bottomIcon}
         >
-          <Box sx={{ padding: 4, ml: 10 }}>
+          <Box sx={{ padding: 3, ml: 10 }}>
             <Stack direction={"row"} spacing={1}>
               <Image
                 src={
                   "https://portal.teaminterval.net/static/media/map.7dd1ec7c87cddefd09e4.gif"
                 }
                 alt="png img"
-                height={200}
+                height={190}
                 width={200}
               />
               <motion.div
@@ -165,6 +172,30 @@ const LeftSection = () => {
                 >
                   Hello Welcome
                 </Typography>
+              </motion.div>
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{
+                  duration: 2,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                }}
+              >
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  gap={3}
+                  flexWrap="wrap"
+                >
+                  {statsData.map((stat, index) => (
+                    <StatsCard
+                      key={index}
+                      value={stat.value}
+                      label={stat.label}
+                      color={stat.color}
+                    />
+                  ))}
+                </Box>
               </motion.div>
             </Stack>
           </Box>
