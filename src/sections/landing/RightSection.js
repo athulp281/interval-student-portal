@@ -62,8 +62,9 @@ const RightSection = () => {
             sx={{
               borderRadius: 5,
               borderTopLeftRadius: 180,
-              mt: 2,
+              mt: 1,
               background: `linear-gradient(to right, #F4F6FF 0%, #F4F6FF 10%, #b85fd3 100%)`,
+              height: "80vh",
             }}
           >
             <motion.div

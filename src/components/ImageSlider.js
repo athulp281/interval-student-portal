@@ -64,7 +64,7 @@ const ImageSlider = () => {
         sx={{
           position: "relative",
           width: "100%",
-          height: "85vh", // Adjust as needed
+          height: "75vh", // Adjust as needed
           overflow: "hidden",
           display: "flex",
           alignItems: "center",

@@ -58,19 +58,19 @@ const boxVariants = {
   },
 };
 
-const LeftSection = () => {
+const LeftSection = ({ handleNavigateToLogin }) => {
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
-        marginTop: 4,
+        marginTop: 1,
         paddingLeft: 10,
       }}
     >
       <Box>
         {/* Logo Header Animation - From Left */}
-        <motion.div
+        {/* <motion.div
           initial="initial"
           animate="animate"
           variants={boxVariants.left}
@@ -78,7 +78,7 @@ const LeftSection = () => {
           <Box>
             <LogoHeader />
           </Box>
-        </motion.div>
+        </motion.div> */}
 
         {/* Main Typography Animation - From Right */}
         <motion.div
@@ -138,7 +138,7 @@ const LeftSection = () => {
           variants={boxVariants.bottom}
         >
           <Box mt={2}>
-            <NavigationButton />
+            <NavigationButton handleNavigateToLogin={handleNavigateToLogin} />
           </Box>
         </motion.div>
         <motion.div
