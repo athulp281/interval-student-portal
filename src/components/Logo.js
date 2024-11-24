@@ -25,7 +25,7 @@ const Logo = () => {
     <Stack
       direction={"row"}
       sx={{
-        backgroundColor: "#fff",
+        // backgroundColor: "#fff",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

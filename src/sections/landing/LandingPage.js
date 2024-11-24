@@ -68,14 +68,6 @@ const LandingPage = () => {
               </Box>
               <Box sx={{ width: "40%" }}>
                 <RightSection />
-                {/* <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNavigateToLogin}
-                  sx={{ mt: 2 }}
-                >
-                  Go to Login
-                </Button> */}
               </Box>
             </Stack>
           </motion.div>
