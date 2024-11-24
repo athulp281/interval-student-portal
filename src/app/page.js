@@ -10,8 +10,9 @@ function Home() {
   const router = useRouter();
   const [layout, setLayout] = useState(null);
   const data = "tokenActive";
-  const user = localStorage.getItem("user");
   useEffect(() => {
+    const user =
+      typeof window !== "undefined" ? localStorage.getItem("user") : null;
     if (user) {
       router.push(pathname);
       setLayout({ auth: false, dashboard: true });

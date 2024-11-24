@@ -9,9 +9,10 @@ function AuthGuard({ Children }) {
   const pathname = usePathname();
   const router = useRouter();
   const [layout, setLayout] = useState(null);
-  const user = localStorage.getItem("user");
   const data = "tokenActive";
   useEffect(() => {
+    const user =
+      typeof window !== "undefined" ? localStorage.getItem("user") : null;
     if (!user) {
       router.push(pathname);
       setLayout({ auth: false, dashboard: true });

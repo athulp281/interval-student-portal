@@ -8,10 +8,11 @@ import Loader from "@/components/Loader";
 function AuthLayout({ children }) {
   const pathname = usePathname();
   const router = useRouter();
-  const user = localStorage.getItem("user");
   const [layout, setLayout] = useState(null);
 
   useEffect(() => {
+    const user =
+      typeof window !== "undefined" ? localStorage.getItem("user") : null;
     if (user) {
       router.push(PATH_DASHBOARD.dashboard);
       setLayout({ auth: false, dashboard: true });

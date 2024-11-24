@@ -16,9 +16,10 @@ export default function Index({ children }) {
   const pathname = usePathname();
   const router = useRouter();
   const [layout, setLayout] = useState(null);
-  const user = localStorage.getItem("user");
 
   useEffect(() => {
+    const user =
+      typeof window !== "undefined" ? localStorage.getItem("user") : null;
     if (user) {
       router.push(PATH_DASHBOARD.dashboard);
       setLayout({ auth: false, dashboard: true });
