@@ -20,7 +20,7 @@ function WebDashboard() {
       router.replace(PATH_AUTH.login);
       setLayout({ auth: true, dashboard: false });
     }
-  }, [user, router]);
+  }, [router]);
   if (layout === null) {
     return (
       <Box

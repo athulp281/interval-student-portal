@@ -22,7 +22,7 @@ function AuthLayout({ children }) {
       router.push(PATH_AUTH.landing);
       setLayout({ auth: true, dashboard: false });
     }
-  }, [user]);
+  }, []);
   if (layout === null) {
     return (
       <Box

@@ -40,7 +40,7 @@ const Wrapper = ({ title, children }) => {
       router.replace(PATH_AUTH.login);
       setLayout({ auth: true, dashboard: false });
     }
-  }, [user, router]);
+  }, [router]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>

@@ -27,7 +27,7 @@ export default function Index({ children }) {
       router.replace(PATH_AUTH.login);
       setLayout({ auth: true, dashboard: false });
     }
-  }, [user, router]);
+  }, [router]);
 
   if (layout === null) {
     return (
