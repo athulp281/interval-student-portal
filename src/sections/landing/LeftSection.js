@@ -7,12 +7,14 @@ import LogoHeader from "./LogoHeader";
 import { ReactTyped } from "react-typed";
 import Image from "next/image";
 import StatsCard from "@/components/StatsCard";
+import useResponsive from "@/components/Hooks/useResponsive";
+import RightSection from "./RightSection";
 
 const statsData = [
-  { value: "54+", label: "Countries We Serve", color: "#26A69A" }, // Medium Teal
-  { value: "40K+", label: "Total Students Enrolled", color: "#EF5350" }, // Medium Red
-  { value: "1M+", label: "Total Class Hours", color: "#AB47BC" }, // Medium Purple
-  { value: "5K+", label: "Total Strength", color: "#FFA726" }, // Medium Orange
+  { value: "54+", label: "Countries We Serve", color: "#26A69A" },
+  { value: "40K+", label: "Total Students Enrolled", color: "#EF5350" },
+  { value: "1M+", label: "Total Class Hours", color: "#AB47BC" },
+  { value: "5K+", label: "Total Strength", color: "#FFA726" },
 ];
 // Define animations with different directions and a 5-second delay before starting
 const boxVariants = {
@@ -59,13 +61,16 @@ const boxVariants = {
 };
 
 const LeftSection = ({ handleNavigateToLogin }) => {
+  const smUp = useResponsive("up", "sm");
+
+  const mdUp = useResponsive("up", "md");
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
         marginTop: 1,
-        paddingLeft: 10,
+        paddingLeft: smUp ? 10 : 3,
       }}
     >
       <Box>
@@ -81,6 +86,7 @@ const LeftSection = ({ handleNavigateToLogin }) => {
         </motion.div> */}
 
         {/* Main Typography Animation - From Right */}
+
         <motion.div
           initial="initial"
           animate="animate"
@@ -88,7 +94,10 @@ const LeftSection = ({ handleNavigateToLogin }) => {
         >
           <Box>
             <Typography
-              sx={{ fontFamily: "Space Grotesk, serif", fontSize: 60 }}
+              sx={{
+                fontFamily: "Space Grotesk, serif",
+                fontSize: smUp ? 60 : 35,
+              }}
             >
               Transforming <br />
               <Box
@@ -116,6 +125,11 @@ const LeftSection = ({ handleNavigateToLogin }) => {
             </Typography>
           </Box>
         </motion.div>
+        {mdUp ? null : (
+          <Box>
+            <RightSection />
+          </Box>
+        )}
 
         {/* Placeholder Text Animation - From Top */}
         <motion.div
@@ -146,16 +160,24 @@ const LeftSection = ({ handleNavigateToLogin }) => {
           animate="animate"
           variants={boxVariants.bottomIcon}
         >
-          <Box sx={{ padding: 3, ml: 10 }}>
-            <Stack direction={"row"} spacing={1}>
-              <Image
-                src={
-                  "https://portal.teaminterval.net/static/media/map.7dd1ec7c87cddefd09e4.gif"
-                }
-                alt="png img"
-                height={190}
-                width={200}
-              />
+          <Box sx={{ padding: smUp ? 3 : 1, ml: smUp ? 6 : 0 }}>
+            <Stack direction={smUp ? "row" : "column"} spacing={1}>
+              <Box
+                sx={{
+                  display: smUp ? null : "flex",
+                  justifyContent: smUp ? null : "center",
+                }}
+              >
+                <Image
+                  src={
+                    "https://portal.teaminterval.net/static/media/map.7dd1ec7c87cddefd09e4.gif"
+                  }
+                  alt="png img"
+                  height={smUp ? 190 : 180}
+                  width={smUp ? 200 : 180}
+                />
+              </Box>
+
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{

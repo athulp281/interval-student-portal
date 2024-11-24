@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Avatar, Box, IconButton, Stack, Typography } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import useResponsive from "./Hooks/useResponsive";
 
 const images = [
   "/sliderimg/img1.png",
@@ -13,6 +14,9 @@ const images = [
 ];
 
 const ImageSlider = () => {
+  const smUp = useResponsive("up", "sm");
+
+  const mdUp = useResponsive("up", "md");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Automatically go to the next slide every 3 seconds
@@ -35,31 +39,7 @@ const ImageSlider = () => {
 
   return (
     <Box>
-      <Box>
-        {/* <Box
-          sx={{
-            width: "100%",
-            position: "absolute",
-            top: 0,
-            left: "50%",
-            transform: "translateX(-50%)",
-            background: "rgba(0, 0, 0, 0.1)",
-            borderTopLeftRadius: "16px",
-            borderTopRightRadius: "30px",
-            borderBottomRightRadius: "60px",
-            borderBottomLeftRadius: "5px",
-            padding: "2px",
-            backdropFilter: "blur(10px)",
-            color: "white",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
-            textShadow: "1px 1px 4px rgba(0, 0, 0, 0.7)",
-          }}
-        >
-          <Box sx={{ padding: 1, borderRadius: 4 }}>
-            <Stack direction={"row"} spacing={1}></Stack>
-          </Box>
-        </Box> */}
-      </Box>
+      <Box></Box>
       <Box
         sx={{
           position: "relative",
@@ -81,9 +61,9 @@ const ImageSlider = () => {
             style={{
               position: "absolute",
               top: 20,
-              left: 20,
-              width: 500,
-              height: 500,
+              left: smUp ? 20 : -30,
+              width: smUp ? 500 : 350,
+              height: smUp ? 500 : 350,
             }}
           >
             <Box>
@@ -103,7 +83,7 @@ const ImageSlider = () => {
           spacing={1}
           sx={{
             position: "absolute",
-            right: "10px",
+            right: smUp ? "10px" : "1px",
             top: "50%",
             transform: "translateY(-50%)",
           }}

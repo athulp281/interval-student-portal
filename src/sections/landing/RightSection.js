@@ -2,8 +2,12 @@ import ImageSlider from "@/components/ImageSlider";
 import { Box, Paper } from "@mui/material";
 import React from "react";
 import { motion } from "framer-motion";
+import useResponsive from "@/components/Hooks/useResponsive";
 
 const RightSection = () => {
+  const smUp = useResponsive("up", "sm");
+
+  const mdUp = useResponsive("up", "md");
   const boxVariants = {
     top: {
       initial: { y: -100, opacity: 0 },

@@ -16,7 +16,7 @@ const logoParts = [
 
 const LogoLoader = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const partSpacing = 50; // Adjust spacing as needed
+  const partSpacing = 49.4; // Adjust spacing as needed
 
   useEffect(() => {
     const timer = setTimeout(() => {

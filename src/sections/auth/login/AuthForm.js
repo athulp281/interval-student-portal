@@ -204,8 +204,12 @@ import VerticalImageSlider from "./VerticalImageSlider";
 import { ImageContainer } from "@/components/ImageContainer";
 import LogInRegForm from "./LogInRegForm";
 import Logo from "@/components/Logo";
+import useResponsive from "@/components/Hooks/useResponsive";
 
 export default function AuthForm() {
+  const smUp = useResponsive("up", "sm");
+
+  const mdUp = useResponsive("up", "md");
   const variants = {
     hidden: (direction) => ({
       opacity: 0,
@@ -240,23 +244,27 @@ export default function AuthForm() {
           padding: 2,
         }}
       >
-        <Box
-          sx={{
-            background:
-              "linear-gradient(to bottom,white 0%, white 10%, #a125c2 100%)",
-            borderRadius: 5,
-            padding: 5,
-            height: "95vh",
-            width: "50%",
-          }}
-        >
-          <Box>
-            <Logo />
+        {mdUp ? (
+          <Box
+            sx={{
+              background:
+                "linear-gradient(to bottom,white 0%, white 10%, #a125c2 100%)",
+              borderRadius: 5,
+              padding: 5,
+              height: "95vh",
+              width: "50%",
+            }}
+          >
+            <Box>
+              <Logo />
+            </Box>
+
+            <Box sx={{ height: "93vh", padding: 2, pt: 15 }}>
+              <ImageContainer />
+            </Box>
           </Box>
-          <Box sx={{ height: "93vh", padding: 2, pt: 15 }}>
-            <ImageContainer />
-          </Box>
-        </Box>
+        ) : null}
+
         <Box sx={{ width: "100%", padding: 3 }}>
           <LogInRegForm />
         </Box>

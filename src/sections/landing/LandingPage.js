@@ -8,8 +8,12 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { PATH_DASHBOARD, PATH_AUTH } from "@/route/paths";
 import LogoHeader from "./LogoHeader";
+import useResponsive from "@/components/Hooks/useResponsive";
 
 const LandingPage = () => {
+  const smUp = useResponsive("up", "sm");
+
+  const mdUp = useResponsive("up", "md");
   const [showContent, setShowContent] = useState(false);
   const router = useRouter();
 
@@ -62,13 +66,15 @@ const LandingPage = () => {
                 <LogoHeader />
               </Box>
             </motion.div>
-            <Stack direction={"row"} spacing={2}>
-              <Box width={"60%"}>
+            <Stack direction={mdUp ? "row" : "column"} spacing={2}>
+              <Box width={mdUp ? "60%" : "100%"}>
                 <LeftSection handleNavigateToLogin={handleNavigateToLogin} />
               </Box>
-              <Box sx={{ width: "40%" }}>
-                <RightSection />
-              </Box>
+              {mdUp ? (
+                <Box sx={{ width: mdUp ? "40%" : "100%" }}>
+                  <RightSection />
+                </Box>
+              ) : null}
             </Stack>
           </motion.div>
         )}
