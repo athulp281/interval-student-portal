@@ -44,7 +44,7 @@ const ImageSlider = () => {
         sx={{
           position: "relative",
           width: "100%",
-          height: "75vh", // Adjust as needed
+          height: smUp ? "75vh" : "55vh", // Adjust as needed
           overflow: "hidden",
           display: "flex",
           alignItems: "center",
@@ -60,7 +60,7 @@ const ImageSlider = () => {
             transition={{ duration: 0.5 }}
             style={{
               position: "absolute",
-              top: 20,
+              top: smUp ? 20 : 10,
               left: smUp ? 20 : -30,
               width: smUp ? 500 : 350,
               height: smUp ? 500 : 350,

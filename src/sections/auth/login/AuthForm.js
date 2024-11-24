@@ -265,7 +265,7 @@ export default function AuthForm() {
           </Box>
         ) : null}
 
-        <Box sx={{ width: "100%", padding: 3 }}>
+        <Box sx={{ width: "100%", padding: smUp ? 3 : null }}>
           <LogInRegForm />
         </Box>
       </Box>

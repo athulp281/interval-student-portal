@@ -13,8 +13,13 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Icon } from "@iconify/react";
+import useResponsive from "@/components/Hooks/useResponsive";
+import Logo from "@/components/Logo";
 
 const LogInRegForm = () => {
+  const smUp = useResponsive("up", "sm");
+
+  const mdUp = useResponsive("up", "md");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -42,6 +47,12 @@ const LogInRegForm = () => {
   };
   return (
     <div>
+      {smUp ? null : (
+        <Box sx={{ ml: 5 }}>
+          <Logo />
+        </Box>
+      )}
+
       <motion.div
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
@@ -120,7 +131,7 @@ const LogInRegForm = () => {
         </Box>
         <Paper
           sx={{
-            padding: 2,
+            padding: smUp ? 2 : 1,
             backgroundColor: "#f9fafb",
             borderRadius: "10px",
             display: "flex",
@@ -135,9 +146,9 @@ const LogInRegForm = () => {
             variants={variants}
           >
             <Typography
-              variant="h2"
+              variant={smUp ? "h2" : "h4"}
               fontWeight="bold"
-              align="right"
+              align={smUp ? "right" : "center"}
               sx={{ fontFamily: "Space Grotesk, serif" }}
               gutterBottom
               // color="white"
@@ -155,7 +166,7 @@ const LogInRegForm = () => {
               variant="body2"
               sx={{ color: "grey.500" }}
               align="center"
-              mb={3}
+              mb={smUp ? 3 : 1}
             >
               Enter your details below.
             </Typography>
