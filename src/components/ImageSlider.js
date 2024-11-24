@@ -90,6 +90,7 @@ const ImageSlider = () => {
         >
           {images.map((_, index) => (
             <Box
+              key={index}
               sx={{
                 borderRadius: "50%",
                 width: 20,
@@ -140,7 +141,7 @@ const ImageSlider = () => {
         >
           <Box sx={{ padding: 1, borderRadius: 4 }}>
             <Box padding={1}>
-              <Typography sx={{ fontSize: 10 }}>CEO's Quotes</Typography>
+              <Typography sx={{ fontSize: 10 }}>CEO&apos;s Quotes</Typography>
             </Box>
 
             <Stack direction={"row"} spacing={1}>
@@ -155,7 +156,7 @@ const ImageSlider = () => {
                 <Typography sx={{ fontSize: 12 }}>Ramees Ali CK</Typography>
                 <Box>
                   <Typography sx={{ fontSize: 10 }}>
-                    "Enter ceo quotes here......"
+                    &quot;Enter CEO quotes here......&quot;
                   </Typography>
                 </Box>
               </Box>

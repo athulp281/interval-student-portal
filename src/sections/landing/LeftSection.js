@@ -139,8 +139,8 @@ const LeftSection = ({ handleNavigateToLogin }) => {
         >
           <Box sx={{ pt: 2 }}>
             <Typography sx={{ fontSize: 18, color: "grey.500" }}>
-              Presenting the Best Online learning platform you'll ever need for
-              your child to be fully investing in their learning journey
+              Presenting the Best Online learning platform you&apos;ll ever need
+              for your child to be fully investing in their learning journey
             </Typography>
           </Box>
         </motion.div>

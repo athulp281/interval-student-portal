@@ -6,22 +6,25 @@ import { Box } from "@mui/material";
 // ----------------------------------------------------------------------
 
 const Page = forwardRef(({ children, title = "", meta, ...other }, ref) => (
-    <>
-        <Helmet>
-            <title>{`${title} | Team INTERVAL`}</title>
-            {meta}
-        </Helmet>
+  <>
+    <Helmet>
+      <title>{`${title} | Team INTERVAL`}</title>
+      {meta}
+    </Helmet>
 
-        <Box ref={ref} {...other}>
-            {children}
-        </Box>
-    </>
+    <Box ref={ref} {...other}>
+      {children}
+    </Box>
+  </>
 ));
 
+// Assign a display name
+Page.displayName = "Page";
+
 Page.propTypes = {
-    children: PropTypes.node.isRequired,
-    title: PropTypes.string,
-    meta: PropTypes.node,
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string,
+  meta: PropTypes.node,
 };
 
 export default Page;
