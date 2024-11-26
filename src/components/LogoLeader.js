@@ -75,6 +75,7 @@ const LogoLoader = () => {
                 alt={`Logo part ${index + 1}`}
                 width={50}
                 height={50}
+                priority
               />
             </motion.div>
           ))}

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
-
 import "../assets/imgContainerStyle.css";
 import useResponsive from "./Hooks/useResponsive";
 import { motion, useTransform, useMotionValue } from "framer-motion";
+import Image from "next/image";
 export const ImageContainer = () => {
   const smUp = useResponsive("up", "sm");
 
@@ -19,12 +19,21 @@ export const ImageContainer = () => {
               repeat: Infinity,
             }}
           >
-            <img
+            <Image
+              src={"/sliderimg/img1.png"}
+              className="item"
+              width={100}
+              height={100}
+              style={{ "--i": 2 }}
+              alt=""
+              priority
+            />
+            {/* <img
               className="item"
               src={"/sliderimg/img1.png"}
               style={{ "--i": 2 }}
               alt=""
-            />
+            /> */}
           </motion.div>
           <span className="item" style={{ "--i": 3 }} />
           <motion.div
@@ -35,11 +44,20 @@ export const ImageContainer = () => {
               repeat: Infinity,
             }}
           >
-            <img
+            {/* <img
               className="item"
               src={"/sliderimg/img2.png"}
               style={{ "--i": 4 }}
               alt=""
+            /> */}
+            <Image
+              src={"/sliderimg/img2.png"}
+              className="item"
+              width={100}
+              height={100}
+              style={{ "--i": 4 }}
+              alt=""
+              priority
             />
           </motion.div>
           <motion.div
@@ -50,11 +68,20 @@ export const ImageContainer = () => {
               repeat: Infinity,
             }}
           >
-            <img
+            {/* <img
               className="item"
               src={"/sliderimg/img3.png"}
               style={{ "--i": 10 }}
               alt=""
+            /> */}
+            <Image
+              src={"/sliderimg/img3.png"}
+              className="item"
+              width={100}
+              height={100}
+              style={{ "--i": 10 }}
+              alt=""
+              priority
             />
           </motion.div>
           <span className="item" style={{ "--i": 11 }} />
@@ -66,11 +93,20 @@ export const ImageContainer = () => {
               repeat: Infinity,
             }}
           >
-            <img
+            {/* <img
               className="item"
               src={"/sliderimg/img4.png"}
               style={{ "--i": 12 }}
               alt=""
+            /> */}
+            <Image
+              src={"/sliderimg/img4.png"}
+              style={{ "--i": 12 }}
+              className="item"
+              width={100}
+              height={100}
+              alt=""
+              priority
             />
           </motion.div>
           <span className="item" style={{ "--i": 5 }} />
@@ -84,11 +120,19 @@ export const ImageContainer = () => {
               repeat: Infinity,
             }}
           >
-            <img
+            {/* <img
               className="item"
               src={"/sliderimg/img5.png"}
               style={{ "--i": 8 }}
               alt=""
+            /> */}
+            <Image
+              src={"/sliderimg/img5.png"}
+              className="item"
+              width={100}
+              height={100}
+              alt=""
+              priority
             />
           </motion.div>
           <span className="item" style={{ "--i": 7 }} />
@@ -100,11 +144,19 @@ export const ImageContainer = () => {
               repeat: Infinity,
             }}
           >
-            <img
+            {/* <img
               className="item"
               src={"/sliderimg/img6.png"}
               style={{ "--i": 6 }}
               alt=""
+            /> */}
+            <Image
+              className="item"
+              src={"/sliderimg/img6.png"}
+              width={100}
+              height={100}
+              alt=""
+              priority
             />
           </motion.div>
         </div>
