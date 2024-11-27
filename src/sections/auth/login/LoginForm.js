@@ -73,7 +73,7 @@ export default function LoginForm() {
 
   return (
     <FormikProvider value={formik}>
-      <Button onClick={() => router.push(PATH_AUTH.landing)}>click</Button>
+      {/* <Button onClick={() => router.push(PATH_AUTH.landing)}>click</Button> */}
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Stack spacing={3}>
           <TextField

@@ -16,10 +16,9 @@ export default function Index({ children }) {
   const pathname = usePathname();
   const router = useRouter();
   const [layout, setLayout] = useState(null);
-
+  const user =
+    typeof window !== "undefined" ? localStorage.getItem("user") : null;
   useEffect(() => {
-    const user =
-      typeof window !== "undefined" ? localStorage.getItem("user") : null;
     if (user) {
       router.push(PATH_DASHBOARD.dashboard);
       setLayout({ auth: false, dashboard: true });
@@ -27,7 +26,7 @@ export default function Index({ children }) {
       router.replace(PATH_AUTH.login);
       setLayout({ auth: true, dashboard: false });
     }
-  }, [router]);
+  }, [user, router]);
 
   if (layout === null) {
     return (

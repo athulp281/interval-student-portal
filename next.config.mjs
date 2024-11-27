@@ -12,6 +12,7 @@ const nextConfig = {
       "mui.com",
       "oracle-devrel.github.io",
       "www.shutterstock.com",
+      "intervaledu.com",
     ],
   },
 };

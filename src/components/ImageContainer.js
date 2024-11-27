@@ -22,8 +22,8 @@ export const ImageContainer = () => {
             <Image
               src={"/sliderimg/img1.png"}
               className="item"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
               style={{ "--i": 2 }}
               alt=""
               priority
@@ -53,8 +53,8 @@ export const ImageContainer = () => {
             <Image
               src={"/sliderimg/img2.png"}
               className="item"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
               style={{ "--i": 4 }}
               alt=""
               priority
@@ -77,8 +77,8 @@ export const ImageContainer = () => {
             <Image
               src={"/sliderimg/img3.png"}
               className="item"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
               style={{ "--i": 10 }}
               alt=""
               priority
@@ -103,8 +103,8 @@ export const ImageContainer = () => {
               src={"/sliderimg/img4.png"}
               style={{ "--i": 12 }}
               className="item"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
               alt=""
               priority
             />
@@ -129,8 +129,8 @@ export const ImageContainer = () => {
             <Image
               src={"/sliderimg/img5.png"}
               className="item"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
               alt=""
               priority
             />
@@ -153,8 +153,8 @@ export const ImageContainer = () => {
             <Image
               className="item"
               src={"/sliderimg/img6.png"}
-              width={100}
-              height={100}
+              width={80}
+              height={80}
               alt=""
               priority
             />

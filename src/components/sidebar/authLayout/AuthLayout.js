@@ -9,10 +9,9 @@ function AuthLayout({ children }) {
   const pathname = usePathname();
   const router = useRouter();
   const [layout, setLayout] = useState(null);
-
+  const user =
+    typeof window !== "undefined" ? localStorage.getItem("user") : null;
   useEffect(() => {
-    const user =
-      typeof window !== "undefined" ? localStorage.getItem("user") : null;
     if (user) {
       router.push(PATH_DASHBOARD.dashboard);
       setLayout({ auth: false, dashboard: true });
@@ -22,7 +21,7 @@ function AuthLayout({ children }) {
       router.push(PATH_AUTH.landing);
       setLayout({ auth: true, dashboard: false });
     }
-  }, []);
+  }, [user]);
   if (layout === null) {
     return (
       <Box

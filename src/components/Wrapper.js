@@ -29,10 +29,9 @@ const Wrapper = ({ title, children }) => {
   const pathname = usePathname();
   const router = useRouter();
   const [layout, setLayout] = useState(null);
-
+  const user =
+    typeof window !== "undefined" ? localStorage.getItem("user") : null;
   useEffect(() => {
-    const user =
-      typeof window !== "undefined" ? localStorage.getItem("user") : null;
     if (user) {
       router.push(pathname);
       setLayout({ auth: false, dashboard: true });
@@ -40,7 +39,7 @@ const Wrapper = ({ title, children }) => {
       router.replace(PATH_AUTH.login);
       setLayout({ auth: true, dashboard: false });
     }
-  }, [router]);
+  }, [user, router]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
