@@ -1,14 +1,18 @@
 "use client";
-import Loader from "@/components/Loader";
 import Wrapper from "@/components/Wrapper";
-
-import React from "react";
+import { PATH_DASHBOARD } from "@/route/paths";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 const page = () => {
-    return (
-        <div>
-            <Wrapper title={"dashboard"}>Dashboard Component</Wrapper>
-        </div>
-    );
+  const router = useRouter();
+  //   useEffect(() => {
+  //     router.prefetch(PATH_DASHBOARD.dashboard); // Preload the dashboard page
+  //   }, [router]);
+  return (
+    <div>
+      <Wrapper title={"dashboard"}>Dashboard Component</Wrapper>
+    </div>
+  );
 };
 
 export default page;

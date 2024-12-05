@@ -32,6 +32,10 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    router.prefetch(PATH_DASHBOARD.dashboard); // Preload the dashboard page
+  }, [router]);
+
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Email must be a valid email address")
@@ -46,7 +50,7 @@ export default function LoginForm() {
       remember: true,
     },
     validationSchema: LoginSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       // dispatch(login(values)).then((res) => {
       //     if (res.payload.error) {
       //         enqueueSnackbar(res.payload.error, { variant: "error" });
@@ -59,7 +63,9 @@ export default function LoginForm() {
       //         router.push(PATH_DASHBOARD.dashboard);
       //     }
       // });
-      localStorage.setItem("user", JSON.stringify(values));
+      requestAnimationFrame(() => {
+        localStorage.setItem("user", JSON.stringify(values));
+      });
       router.push(PATH_DASHBOARD.dashboard);
     },
   });
@@ -67,9 +73,9 @@ export default function LoginForm() {
   const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } =
     formik;
 
-  const handleShowPassword = () => {
-    setShowPassword((show) => !show);
-  };
+  const togglePasswordVisibility = useCallback(() => {
+    setShowPassword((prev) => !prev);
+  }, []);
 
   return (
     <FormikProvider value={formik}>

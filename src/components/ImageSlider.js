@@ -66,15 +66,18 @@ const ImageSlider = () => {
               height: smUp ? 500 : 350,
             }}
           >
-            <Box>
-              <Image
-                src={images[currentIndex]}
-                alt={`Slide ${currentIndex + 1}`}
-                layout="fill"
-                objectFit="cover"
-                priority
-              />
-            </Box>
+            {/* <Box sx={{ position: "fixed" }}> */}
+            <Image
+              src={images[currentIndex]}
+              alt={`Slide ${currentIndex + 1}`}
+              fill
+              sizes="(max-width: 768px) 100vw, 
+              (max-width: 1200px) 50vw, 
+              33vw"
+              style={{ objectFit: "cover" }}
+              priority
+            />
+            {/* </Box> */}
           </motion.div>
         </AnimatePresence>
         {/* ------------------------------------------------------- */}

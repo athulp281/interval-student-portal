@@ -188,19 +188,8 @@
 // }
 
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  IconButton,
-  InputAdornment,
-  Paper,
-} from "@mui/material";
-import loginimg from "../../../../public/authPage/login.png";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Box } from "@mui/material";
 import { motion } from "framer-motion";
-import VerticalImageSlider from "./VerticalImageSlider";
 import { ImageContainer } from "@/components/ImageContainer";
 import LogInRegForm from "./LogInRegForm";
 import Logo from "@/components/Logo";
@@ -222,7 +211,7 @@ export default function AuthForm() {
       y: 0,
       transition: {
         duration: 2,
-        delay: 1, // Add delay for staggered animations
+        delay: 1,
         type: "spring",
         stiffness: 50,
       },

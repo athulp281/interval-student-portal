@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import Appabar from "./Appbar";
-import { CompanyIcon } from "../CompanyIcon";
+import CompanyIcon from "../CompanyIcon";
 import { SidebarAvatar } from "./SidebarAvatar";
 import navConfig from "./navConfig";
 import ExpandLess from "@mui/icons-material/ExpandLess";

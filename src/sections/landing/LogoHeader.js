@@ -40,6 +40,7 @@ const LogoHeader = () => {
             <Image
               height={30}
               width={130}
+              alt="logo"
               src={
                 "https://www.intervaledu.com/static/web/images/logo/logo-dark.png"
               }

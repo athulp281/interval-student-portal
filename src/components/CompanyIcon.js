@@ -22,6 +22,7 @@ function CompanyIcon({ setNavItem }) {
               height={35}
               width={150}
               alt="logo"
+              priority
             />
           </Box>
           {/* <Box mt={1.5}>

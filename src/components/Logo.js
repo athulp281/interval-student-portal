@@ -31,7 +31,7 @@ const Logo = () => {
         alignItems: "center",
         padding: 1,
         borderRadius: 3,
-        minWidth: 300,
+        // minWidth: 300,
       }}
     >
       <Box sx={{ paddingTop: 1.6 }}>
@@ -42,6 +42,8 @@ const Logo = () => {
             src={
               "https://www.intervaledu.com/static/web/images/logo/logo-dark.png"
             }
+            alt="logo"
+            priority
           />
         </motion.div>
       </Box>

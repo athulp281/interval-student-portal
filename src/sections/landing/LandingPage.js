@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PATH_DASHBOARD, PATH_AUTH } from "@/route/paths";
 import LogoHeader from "./LogoHeader";
 import useResponsive from "@/components/Hooks/useResponsive";
+import TutorLanding from "./tutor/TutorLanding";
 
 const LandingPage = () => {
   const smUp = useResponsive("up", "sm");
@@ -42,6 +43,7 @@ const LandingPage = () => {
 
   return (
     <div>
+      {/* <TutorLanding /> */}
       <AnimatePresence>
         {!showContent ? (
           <motion.div

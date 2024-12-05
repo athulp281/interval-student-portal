@@ -40,6 +40,7 @@ const AuthLogoHeader = () => {
               src={
                 "https://www.intervaledu.com/static/web/images/logo/logo-dark.png"
               }
+              alt="logo"
             />
           </Box>
         </motion.div>

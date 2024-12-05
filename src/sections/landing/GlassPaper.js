@@ -23,7 +23,7 @@ const GlassPaper = () => {
       }}
     >
       <Box sx={{ zIndex: 2 }}>
-        <Image height={100} width={200} src={image} />
+        <Image height={100} width={200} src={image} alt="" />
       </Box>
     </Box>
   );

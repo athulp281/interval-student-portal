@@ -25,7 +25,7 @@ export const ImageContainer = () => {
               width={80}
               height={80}
               style={{ "--i": 2 }}
-              alt=""
+              alt="png"
               priority
             />
             {/* <img
@@ -56,7 +56,7 @@ export const ImageContainer = () => {
               width={80}
               height={80}
               style={{ "--i": 4 }}
-              alt=""
+              alt="png"
               priority
             />
           </motion.div>
@@ -80,7 +80,7 @@ export const ImageContainer = () => {
               width={80}
               height={80}
               style={{ "--i": 10 }}
-              alt=""
+              alt="png"
               priority
             />
           </motion.div>
@@ -105,7 +105,7 @@ export const ImageContainer = () => {
               className="item"
               width={80}
               height={80}
-              alt=""
+              alt="png"
               priority
             />
           </motion.div>
@@ -131,7 +131,7 @@ export const ImageContainer = () => {
               className="item"
               width={80}
               height={80}
-              alt=""
+              alt="png"
               priority
             />
           </motion.div>
@@ -155,7 +155,7 @@ export const ImageContainer = () => {
               src={"/sliderimg/img6.png"}
               width={80}
               height={80}
-              alt=""
+              alt="png"
               priority
             />
           </motion.div>
