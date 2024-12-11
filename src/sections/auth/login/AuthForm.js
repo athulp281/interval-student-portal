@@ -240,7 +240,8 @@ export default function AuthForm() {
                 "linear-gradient(to bottom,white 0%, white 10%, #a125c2 100%)",
               borderRadius: 5,
               padding: 5,
-              height: "95vh",
+              minHeight: "93vh",
+
               width: "50%",
             }}
           >
@@ -248,7 +249,13 @@ export default function AuthForm() {
               <Logo />
             </Box>
 
-            <Box sx={{ height: "93vh", padding: 2, pt: 15 }}>
+            <Box
+              sx={{
+                // minHeight: "93vh",
+                padding: 2,
+                pt: 15,
+              }}
+            >
               <ImageContainer />
             </Box>
           </Box>

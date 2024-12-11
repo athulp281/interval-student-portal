@@ -1,28 +1,43 @@
 "use client";
-import { Login } from "@/sections/auth/login";
+
+import { useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { PATH_AUTH, PATH_DASHBOARD } from "@/route/paths";
 import Loader from "@/components/Loader";
+import { PATH_AUTH, PATH_DASHBOARD } from "@/route/paths";
+import { useSnackbar } from "notistack";
+
 function AuthLayout({ children }) {
+  const { enqueueSnackbar } = useSnackbar();
   const pathname = usePathname();
   const router = useRouter();
-  const [layout, setLayout] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+
   const user =
     typeof window !== "undefined" ? localStorage.getItem("user") : null;
   useEffect(() => {
     if (user) {
-      router.push(PATH_DASHBOARD.dashboard);
-      setLayout({ auth: false, dashboard: true });
-    } else if (pathname === PATH_AUTH.login) {
-      setLayout({ auth: true, dashboard: false });
+      // router.push(PATH_DASHBOARD.dashboard);
+      setIsAuthenticated(true);
     } else {
-      router.push(PATH_AUTH.landing);
-      setLayout({ auth: true, dashboard: false });
+      // router.replace(PATH_AUTH.login);
+      setIsAuthenticated(false);
     }
-  }, [user]);
-  if (layout === null) {
+    if (!user && pathname.startsWith(PATH_DASHBOARD.root)) {
+      router.replace(PATH_AUTH.login);
+    }
+    if (user && pathname.startsWith(PATH_AUTH.root)) {
+      router.replace(PATH_DASHBOARD.dashboard);
+    }
+  }, [router]);
+  if (isAuthenticated === false && pathname.startsWith(PATH_DASHBOARD.root)) {
+    enqueueSnackbar("Access Denied: You are not authorized...!", {
+      variant: "error",
+    });
+  }
+
+  // Prevent rendering unauthorized components
+  if (isAuthenticated === null) {
     return (
       <Box
         sx={{
@@ -36,7 +51,11 @@ function AuthLayout({ children }) {
 
   return (
     <div>
-      <Box>{children}</Box>
+      {!isAuthenticated &&
+      pathname.startsWith(PATH_DASHBOARD.root) ? null : isAuthenticated &&
+        pathname.startsWith(PATH_AUTH.root) ? null : (
+        <Box> {children}</Box>
+      )}
     </div>
   );
 }

@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ThemeProviderWrapper>
           <Index>
-            <HelmetProviderWrapper>{children}</HelmetProviderWrapper>
+            <HelmetProviderWrapper> {children}</HelmetProviderWrapper>
           </Index>
         </ThemeProviderWrapper>
       </body>

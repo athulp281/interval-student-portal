@@ -1,4 +1,3 @@
-import AuthLayout from "@/components/sidebar/authLayout/AuthLayout";
 import { LandingPage } from "@/sections/landing";
 import React from "react";
 

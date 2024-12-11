@@ -19,7 +19,7 @@ const Title = ({ title }) => {
   return <Typography variant="h4">{formattedTitle}</Typography>;
 };
 
-const Wrapper = ({ title, children }) => {
+const Wrapper = ({ title, children, pageAction }) => {
   const keyframesExample = {
     hidden: { opacity: 0, x: -100 },
     halfway: { opacity: 0.5, x: 50 },
@@ -39,31 +39,36 @@ const Wrapper = ({ title, children }) => {
       router.replace(PATH_AUTH.login);
       setLayout({ auth: true, dashboard: false });
     }
-  }, [user, router]);
+  }, [user, router, pathname]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
+      {/* {user ? ( */}
       <motion.div
         initial="hidden"
         animate="visible"
         variants={keyframesExample}
         style={{ width: "100%" }}
       >
-        <Box padding={5}>
-          <Box width="100%">
-            <Title title={title} />
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box padding={3}>
+            <Box width="100%">
+              <Title title={title} />
+            </Box>
+            <Box width="100%">
+              <Breadcrumbs />
+            </Box>
           </Box>
-          <Box width="100%">
-            <Breadcrumbs />
-          </Box>
+          <Box sx={{ padding: 4 }}>{pageAction}</Box>
         </Box>
 
-        <Box padding={3}>
+        <Box padding={2.5}>
           <Page title={title} sx={{ width: "100%" }}>
             {children}
           </Page>
         </Box>
       </motion.div>
+      {/* ) : null} */}
     </Box>
   );
 };

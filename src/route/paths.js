@@ -14,6 +14,11 @@ export const PATH_AUTH = {
 
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
+  grievance: path(ROOTS_DASHBOARD, "/grievance-register"),
+  createnewgrievance: path(
+    ROOTS_DASHBOARD,
+    "/grievance-register/create-new-grievance"
+  ),
   dashboard: path(ROOTS_DASHBOARD, "/websitedashboard"),
   analytics: path(ROOTS_DASHBOARD, "/webanalytics"),
   courses: path(ROOTS_DASHBOARD, "/courses"),

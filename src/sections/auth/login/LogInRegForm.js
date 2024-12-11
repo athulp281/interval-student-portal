@@ -19,8 +19,13 @@ import * as Yup from "yup";
 import { PATH_DASHBOARD, PATH_AUTH } from "@/route/paths";
 import { useFormik, Form, FormikProvider } from "formik";
 import { usePathname, useRouter } from "next/navigation";
+import { login } from "@/redux/features/authSlice";
+import { useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
 
 const LogInRegForm = () => {
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
   const smUp = useResponsive("up", "sm");
 
   const mdUp = useResponsive("up", "md");
@@ -51,36 +56,36 @@ const LogInRegForm = () => {
     },
   };
   const LoginSchema = Yup.object().shape({
-    name: Yup.string().required("name is required"),
-    email: Yup.string()
-      .email("Email must be a valid email address")
-      .required("Email is required"),
-    password: Yup.string().required("Password is required"),
+    username: Yup.string().required("name is required"),
+    // email: Yup.string()
+    //   .email("Email must be a valid email address")
+    //   .required("Email is required"),
+    pass: Yup.string().required("Password is required"),
   });
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      username: "HIMA.C1",
       email: "",
-      password: "",
+      pass: "HIMA.C@3",
       remember: true,
     },
     validationSchema: LoginSchema,
     onSubmit: (values) => {
-      // dispatch(login(values)).then((res) => {
-      //     if (res.payload.error) {
-      //         enqueueSnackbar(res.payload.error, { variant: "error" });
-      //     } else if (res.payload.user) {
-      //         enqueueSnackbar(res.payload.message, {
-      //             variant: "success",
-      //         });
-      //         const user = { status: "Active user" };
-      //         localStorage.setItem("user", JSON.stringify(res.payload));
-      //         router.push(PATH_DASHBOARD.dashboard);
-      //     }
-      // });
-      localStorage.setItem("user", JSON.stringify(values));
-      router.push(PATH_DASHBOARD.dashboard);
+      dispatch(login(values)).then((res) => {
+        if (!res.payload.status) {
+          enqueueSnackbar(res.payload.message, { variant: "error" });
+        } else if (res.payload.status) {
+          localStorage.setItem("user", JSON.stringify(res.payload));
+          router.push(PATH_DASHBOARD.dashboard);
+          enqueueSnackbar(res.payload.message, {
+            variant: "success",
+          });
+          const user = { status: "Active user" };
+        }
+      });
+      // localStorage.setItem("user", JSON.stringify(values));
+      // router.push(PATH_DASHBOARD.dashboard);
     },
   });
 
@@ -225,10 +230,10 @@ const LogInRegForm = () => {
                 >
                   <TextField
                     label="Full Name"
-                    name="name"
+                    name="username"
                     fullWidth
                     margin="normal"
-                    value={formik.values.name}
+                    value={formik.values.username}
                     onChange={formik.handleChange}
                     error={Boolean(touched.name && errors.name)}
                     helperText={touched.name && errors.name}
@@ -245,7 +250,7 @@ const LogInRegForm = () => {
                   animate="visible"
                   variants={variants}
                 >
-                  <TextField
+                  {/* <TextField
                     name="email"
                     label="Email Address"
                     type="email"
@@ -260,7 +265,7 @@ const LogInRegForm = () => {
                         borderRadius: "25px", // Rounded border
                       },
                     }}
-                  />
+                  /> */}
                 </motion.div>
                 <motion.div
                   custom="bottom"
@@ -269,9 +274,9 @@ const LogInRegForm = () => {
                   variants={variants}
                 >
                   <TextField
-                    name="password"
+                    name="pass"
                     label="Password"
-                    value={formik.values.password}
+                    value={formik.values.pass}
                     onChange={formik.handleChange}
                     type={showPassword ? "text" : "password"}
                     error={Boolean(touched.password && errors.password)}
