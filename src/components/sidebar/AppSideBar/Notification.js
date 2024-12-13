@@ -18,6 +18,7 @@ export default function Notification() {
   return (
     <div>
       <Box
+        sx={{ pt: 1 }}
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"

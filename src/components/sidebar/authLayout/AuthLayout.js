@@ -17,10 +17,8 @@ function AuthLayout({ children }) {
     typeof window !== "undefined" ? localStorage.getItem("user") : null;
   useEffect(() => {
     if (user) {
-      // router.push(PATH_DASHBOARD.dashboard);
       setIsAuthenticated(true);
     } else {
-      // router.replace(PATH_AUTH.login);
       setIsAuthenticated(false);
     }
     if (!user && pathname.startsWith(PATH_DASHBOARD.root)) {
@@ -35,8 +33,6 @@ function AuthLayout({ children }) {
       variant: "error",
     });
   }
-
-  // Prevent rendering unauthorized components
   if (isAuthenticated === null) {
     return (
       <Box

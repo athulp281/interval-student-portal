@@ -1,58 +1,60 @@
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Paper,
-  Stack,
-  Toolbar,
-  Typography,
-  styled,
-} from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, IconButton, Paper, Toolbar, styled } from "@mui/material";
+import React, { memo, useCallback, useEffect } from "react";
 import MuiAppBar from "@mui/material/AppBar";
-import MenuIcon from "@mui/icons-material/Menu";
 import AccountPopover from "../AccountPopover";
 import MobileSideBar from "./MobileSideBar";
 import useResponsive from "@/components/Hooks/useResponsive";
 import { Icon } from "@iconify/react";
 import Notification from "./Notification";
 import SearchBar from "../SearchBar";
+import AppBarLogOut from "./AppBarLogOut";
+import MotionWrapper from "@/components/MotionWrapper";
+
+// Styles
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  width: 43,
+  height: "100%",
+  borderRadius: "50%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  background: `linear-gradient(to bottom, #a125c2 0%, #a125c2 10%, #0089d0 100%)`,
+  color: "white",
+}));
+
+const drawerWidth = 270;
+
+// Memoized AppBar
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  backgroundColor: "white",
+  transition: theme.transitions.create(["width", "margin"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: open ? drawerWidth : 0,
+    width: `calc(100% - ${open ? drawerWidth : 0}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
 
 const Appbar = ({ open, setOpen }) => {
   const smUp = useResponsive("up", "sm");
-  const mdUp = useResponsive("up", "md");
 
   useEffect(() => {
-    if (smUp) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  }, [smUp]);
+    setOpen(smUp);
+  }, [smUp, setOpen]);
 
-  const drawerWidth = 270;
-  const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== "open",
-  })(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: "white",
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      marginLeft: smUp ? drawerWidth : 0,
-      width: `calc(100% - ${smUp ? drawerWidth : 0}px)`,
-      transition: theme.transitions.create(["width", "margin"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }));
-
-  const handleDrawerOpen = () => {
+  const handleDrawerOpen = useCallback(() => {
     setOpen(true);
-  };
+  }, [setOpen]);
+
   return (
     <AppBar
       position="fixed"
@@ -84,62 +86,30 @@ const Appbar = ({ open, setOpen }) => {
         ) : (
           <MobileSideBar />
         )}
-        {smUp ? (
+        {smUp && (
           <Box sx={{ mr: 2, mt: 0.3 }}>
-            <SearchBar />
+            <MotionWrapper directions={"bottom"}>
+              <SearchBar />
+            </MotionWrapper>
           </Box>
-        ) : null}
-
+        )}
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <AccountPopover />
-          <Box sx={{ ml: 2 }}>
-            <Paper
-              elevation={3}
-              sx={{
-                width: 150,
-                height: "100%",
-                borderRadius: 3,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                background: `linear-gradient(to bottom, #0089d0 0%, #0089d0 10%, #a125c2 100%)`,
-                color: "white",
-              }}
-            >
-              <Stack direction={"row"}>
-                <Box>
-                  <Icon icon="ph:student" width="25" height="25" />
-                </Box>
-                <Typography sx={{ fontWeight: 600, fontSize: 12, pt: 0.7 }}>
-                  Athul P
-                </Typography>
-                <Box sx={{ pt: 0.5, pl: 4 }}>
-                  <Icon icon="icon-park-outline:down" width="20" height="20" />
-                </Box>
-              </Stack>
-            </Paper>
-          </Box>
-          <Box ml={0.5}>
-            <Paper
-              elevation={3}
-              sx={{
-                width: 43,
-                height: "100%",
-                borderRadius: "50%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                background: `linear-gradient(to bottom, #a125c2 0%, #a125c2 10%, #0089d0 100%)`,
-                color: "white",
-              }}
-            >
-              <Notification />
-            </Paper>
-          </Box>
+          <MotionWrapper directions={"top"}>
+            <AccountPopover />
+          </MotionWrapper>
+          <AppBarLogOut />
+          <MotionWrapper directions={"left"}>
+            {" "}
+            <Box ml={0.5}>
+              <StyledPaper elevation={3}>
+                <Notification />
+              </StyledPaper>
+            </Box>
+          </MotionWrapper>
         </Box>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Appbar;
+export default memo(Appbar);

@@ -23,7 +23,7 @@ const navConfig = [
   },
   {
     text: "Profile",
-    path: PATH_DASHBOARD.grievance,
+    path: PATH_DASHBOARD.profile,
     icon: ICONS.Profile,
   },
   // {

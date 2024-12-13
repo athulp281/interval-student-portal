@@ -14,6 +14,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import navConfig from "../navConfig";
 import palette from "@/context/ThemeContext/palette";
+import MotionWrapper from "@/components/MotionWrapper";
 
 function SidebarMenuItems({ setOpen }) {
   const smUp = useResponsive("up", "sm");
@@ -36,80 +37,30 @@ function SidebarMenuItems({ setOpen }) {
     }));
   };
   const renderNavItems = (items, isChild = false) => {
-    return items.map((item) => {
+    return items.map((item, index) => {
       const hasChildren = item.children && item.children.length > 0;
 
       return (
         <React.Fragment key={item.text || item.title}>
           {hasChildren ? (
-            <ListItem
-              button
-              onClick={() => handleToggle(item.text)}
-              sx={{
-                marginTop: 1,
-                borderRadius: 4,
-                "&:hover": {
-                  backgroundColor: "rgba(0, 0, 0, 0.08)",
-                },
-                backgroundColor: openItems[item.text]
-                  ? "rgba(0, 0, 0, 0.04)"
-                  : "inherit",
-                paddingLeft: isChild ? 4 : 2, // Indent child items
-              }}
-            >
-              {item.icon && !isChild && (
-                <ListItemIcon>{item.icon}</ListItemIcon>
-              )}
-              <ListItemText
-                primary={
-                  <Typography
-                    variant="subtitle2"
-                    sx={{
-                      fontSize: isChild ? 10 : 12,
-                      fontFamily: "'Roboto', sans-serif",
-                      fontWeight: isChild
-                        ? "normal"
-                        : selectedPath === item.path
-                        ? "bolder"
-                        : "",
-                      textTransform: "uppercase",
-                      color: palette.grey[500],
-                    }}
-                  >
-                    {isChild ? <span style={{ marginRight: 8 }}>•</span> : null}
-                    {item.text || item.title}
-                  </Typography>
-                }
-              />
-              {openItems[item.text] ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-          ) : (
-            <Link href={item.path} passHref>
+            <MotionWrapper directions={"bottom"}>
               <ListItem
                 button
-                selected={selectedPath === item.path}
-                onClick={() => handleListItemClick(item)}
+                onClick={() => handleToggle(item.text)}
                 sx={{
                   marginTop: 1,
                   borderRadius: 4,
                   "&:hover": {
                     backgroundColor: "rgba(0, 0, 0, 0.08)",
                   },
-                  background:
-                    selectedPath === item.path
-                      ? `linear-gradient(to bottom, #0089d0 0%, #0089d0 10%, #a125c2 100%)`
-                      : "inherit",
+                  backgroundColor: openItems[item.text]
+                    ? "rgba(0, 0, 0, 0.04)"
+                    : "inherit",
                   paddingLeft: isChild ? 4 : 2, // Indent child items
                 }}
               >
                 {item.icon && !isChild && (
-                  <ListItemIcon
-                    sx={{
-                      color: selectedPath === item.path ? "white" : null,
-                    }}
-                  >
-                    {item.icon}
-                  </ListItemIcon>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
                 )}
                 <ListItemText
                   primary={
@@ -124,10 +75,7 @@ function SidebarMenuItems({ setOpen }) {
                           ? "bolder"
                           : "",
                         textTransform: "uppercase",
-                        color:
-                          selectedPath === item.path
-                            ? "white"
-                            : palette.grey[500],
+                        color: palette.grey[500],
                       }}
                     >
                       {isChild ? (
@@ -137,7 +85,66 @@ function SidebarMenuItems({ setOpen }) {
                     </Typography>
                   }
                 />
+                {openItems[item.text] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
+            </MotionWrapper>
+          ) : (
+            <Link href={item.path} passHref>
+              <MotionWrapper directions={"bottom"}>
+                <ListItem
+                  button
+                  selected={selectedPath === item.path}
+                  onClick={() => handleListItemClick(item)}
+                  sx={{
+                    marginTop: 1,
+                    borderRadius: 4,
+                    "&:hover": {
+                      backgroundColor: "rgba(0, 0, 0, 0.08)",
+                    },
+                    background:
+                      selectedPath === item.path
+                        ? `linear-gradient(to bottom, #0089d0 0%, #0089d0 10%, #a125c2 100%)`
+                        : "inherit",
+                    paddingLeft: isChild ? 4 : 2,
+                  }}
+                >
+                  {item.icon && !isChild && (
+                    <ListItemIcon
+                      sx={{
+                        color: selectedPath === item.path ? "white" : null,
+                      }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                  )}
+                  <ListItemText
+                    primary={
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          fontSize: isChild ? 10 : 12,
+                          fontFamily: "'Roboto', sans-serif",
+                          fontWeight: isChild
+                            ? "normal"
+                            : selectedPath === item.path
+                            ? "bolder"
+                            : "",
+                          textTransform: "uppercase",
+                          color:
+                            selectedPath === item.path
+                              ? "white"
+                              : palette.grey[500],
+                        }}
+                      >
+                        {isChild ? (
+                          <span style={{ marginRight: 8 }}>•</span>
+                        ) : null}
+                        {item.text || item.title}
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              </MotionWrapper>
             </Link>
           )}
           {hasChildren && (

@@ -15,6 +15,7 @@ export const PATH_AUTH = {
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   grievance: path(ROOTS_DASHBOARD, "/grievance-register"),
+  profile: path(ROOTS_DASHBOARD, "/profile"),
   createnewgrievance: path(
     ROOTS_DASHBOARD,
     "/grievance-register/create-new-grievance"

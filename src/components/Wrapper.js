@@ -51,7 +51,7 @@ const Wrapper = ({ title, children, pageAction }) => {
         style={{ width: "100%" }}
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box padding={3}>
+          <Box padding={2}>
             <Box width="100%">
               <Title title={title} />
             </Box>
@@ -62,7 +62,7 @@ const Wrapper = ({ title, children, pageAction }) => {
           <Box sx={{ padding: 4 }}>{pageAction}</Box>
         </Box>
 
-        <Box padding={2.5}>
+        <Box paddingLeft={1.5}>
           <Page title={title} sx={{ width: "100%" }}>
             {children}
           </Page>

@@ -23,6 +23,7 @@ import SmallSidebarMenuItems from "./SmallSideBarMenuItems";
 import Appbar from "./Appbar";
 import Logo from "@/components/Logo";
 import { Icon } from "@iconify/react";
+import MotionWrapper from "@/components/MotionWrapper";
 
 const drawerWidth = 270;
 
@@ -136,9 +137,12 @@ export default function AppSideBar({ children }) {
         {smUp ? (
           <Drawer variant="permanent" open={open} sx={{ overflow: "hidden" }}>
             <DrawerHeader>
-              <Box>
-                <Logo />
-              </Box>
+              <MotionWrapper directions={"right"}>
+                {" "}
+                <Box>
+                  <Logo />
+                </Box>
+              </MotionWrapper>
 
               <IconButton onClick={handleDrawerClose}>
                 {theme.direction === "rtl" ? (
@@ -156,9 +160,11 @@ export default function AppSideBar({ children }) {
 
             <DrawerContent>
               <Box>
-                <Box>
-                  <SidebarAvatar open={open} />
-                </Box>
+                <MotionWrapper directions={"bottom"}>
+                  <Box>
+                    <SidebarAvatar open={open} />
+                  </Box>
+                </MotionWrapper>
               </Box>
               <Divider
                 sx={{
