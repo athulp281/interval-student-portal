@@ -1,61 +1,12 @@
-"use client";
-import Wrapper from "@/components/Wrapper";
-import { Box, Button } from "@mui/material";
-import React, { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { PATH_DASHBOARD } from "@/route/paths";
-import { Icon } from "@iconify/react";
-import { DataGrid } from "@mui/x-data-grid";
-import CustomGridToolbar from "@/components/CustomGridToolbar";
-import { GRIEVANCE_TABLE_HEAD } from "./DemoTableHead";
-
-const GrievanceView = () => {
-  const [gridSize, setGridSize] = useState(5);
-  const router = useRouter();
-  const handleClick = () => {
-    router.push(PATH_DASHBOARD.createnewgrievance);
-  };
-  return (
-    <Wrapper
-      title={"All Grievances"}
-      pageAction={
-        <Button onClick={handleClick}>
-          <Icon icon="basil:add-outline" width="24" height="24" />
-          Add Grievance
-        </Button>
-      }
-    >
-      <Box>
-        <DataGrid
-          components={{ Toolbar: CustomGridToolbar }}
-          autoHeight
-          disableVirtualization
-          sx={{
-            "& .MuiDataGrid-columnHeaderTitle": {
-              textOverflow: "clip",
-              whiteSpace: "break-spaces",
-              lineHeight: 1,
-            },
-          }}
-          rows={GrievanceDemo ? GrievanceDemo : []}
-          columns={GRIEVANCE_TABLE_HEAD}
-          getRowId={(row) => row.slNo}
-          pageSize={gridSize}
-          rowsPerPageOptions={[5, 10, 25, 50]}
-          onPageSizeChange={(newGridSize) => setGridSize(newGridSize)}
-        />
-      </Box>
-    </Wrapper>
-  );
-};
 export const GrievanceDemo = [
   {
     slNo: 1,
-    subject: "Maths",
-    requester: "test user",
-    channel: "web  form",
-    group: "test",
-    assigned: "test user",
+    title: "Introduction to AI",
+    indexImage: "index_image_1.jpg",
+    shortDescription: "A beginner's guide to Artificial Intelligence.",
+    bannerImage: "banner_image_1.jpg",
+    detailBannerContent:
+      "Explore the fundamentals of AI, including machine learning, deep learning, and neural networks.",
     feature:
       "Interactive tutorials, Real-world applications, Hands-on projects",
     benefits: "Understand AI concepts, Practical skills, Career advancement",
@@ -141,5 +92,3 @@ export const GrievanceDemo = [
     action: "Sign Up",
   },
 ];
-
-export default GrievanceView;

@@ -26,6 +26,7 @@ const MotionWrapper = ({ children, directions, delay }) => {
       custom={`${directions}`}
       initial="hidden"
       animate="visible"
+      style={{ width: "100%" }}
       variants={variants}
     >
       {children}
