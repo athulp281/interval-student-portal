@@ -3,7 +3,7 @@ import * as React from "react";
 import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import CustomGridToolbar from "@/components/CustomGridTolbar";
+// import CustomGridToolbar from "@/components/CustomGridTolbar";
 import { COURSE_TABLE_HEAD } from "./CourseTableHead";
 import { CourseDemo } from "./DemoData";
 
@@ -14,7 +14,7 @@ function Course() {
     <>
       <Paper elevation={3}>
         <DataGrid
-          components={{ Toolbar: CustomGridToolbar }}
+          //   components={{ Toolbar: CustomGridToolbar }}
           autoHeight
           sx={{
             "& .MuiDataGrid-columnHeaderTitle": {
