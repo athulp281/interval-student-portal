@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { PATH_DASHBOARD } from "@/route/paths";
 import { Icon } from "@iconify/react";
 import { DataGrid } from "@mui/x-data-grid";
-import CustomGridToolbar from "@/components/CustomGridToolbar";
+// import CustomGridToolbar from "@/components/CustomGridToolbar";
 import { GRIEVANCE_TABLE_HEAD } from "./DemoTableHead";
 
 const GrievanceView = () => {
@@ -27,7 +27,7 @@ const GrievanceView = () => {
     >
       <Box>
         <DataGrid
-          components={{ Toolbar: CustomGridToolbar }}
+          // components={{ Toolbar: CustomGridToolbar }}
           autoHeight
           disableVirtualization
           sx={{
