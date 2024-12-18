@@ -65,9 +65,9 @@ const LogInRegForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: "HIMA.C1",
+      username: "IRA",
       email: "",
-      pass: "HIMA.C@3",
+      pass: "IRA@3442",
       remember: true,
     },
     validationSchema: LoginSchema,

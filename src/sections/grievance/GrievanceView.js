@@ -1,50 +1,88 @@
 "use client";
 import Wrapper from "@/components/Wrapper";
 import { Box, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { PATH_DASHBOARD } from "@/route/paths";
 import { Icon } from "@iconify/react";
-import { DataGrid } from "@mui/x-data-grid";
+// import { DataGrid } from "@mui/x-data-grid";
 // import CustomGridToolbar from "@/components/CustomGridToolbar";
 import { GRIEVANCE_TABLE_HEAD } from "./DemoTableHead";
+import dynamic from "next/dynamic";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  getAllGrievance,
+  getStudentsCourse,
+} from "@/redux/features/grievanceSlice";
+import MotionWrapper from "@/components/MotionWrapper";
+
+const DataGrid = dynamic(
+  () => import("@mui/x-data-grid").then((mod) => mod.DataGrid),
+  {
+    ssr: false,
+  }
+);
 
 const GrievanceView = () => {
+  const dispatch = useDispatch();
   const [gridSize, setGridSize] = useState(5);
+  const { loading, allGrievancedata } = useSelector((state) => state.grievance);
   const router = useRouter();
   const handleClick = () => {
     router.push(PATH_DASHBOARD.createnewgrievance);
   };
+
+  useEffect(() => {
+    dispatch(getAllGrievance());
+    dispatch(getStudentsCourse());
+  }, []);
+  useEffect(() => {
+    console.log(allGrievancedata);
+  }, [allGrievancedata]);
   return (
     <Wrapper
       title={"All Grievances"}
       pageAction={
-        <Button onClick={handleClick}>
-          <Icon icon="basil:add-outline" width="24" height="24" />
-          Add Grievance
-        </Button>
+        <MotionWrapper directions={"right"} delay={2}>
+          <Button
+            sx={{
+              background: `linear-gradient(to right, #0089d0 0%, #0089d0 10%, #F4F6FF 100%)`,
+              color: "white",
+              borderRadius: 3,
+            }}
+            onClick={handleClick}
+          >
+            <Icon icon="basil:add-outline" width="24" height="24" />
+            Add Grievance
+          </Button>
+        </MotionWrapper>
       }
     >
-      <Box>
-        <DataGrid
-          // components={{ Toolbar: CustomGridToolbar }}
-          autoHeight
-          disableVirtualization
-          sx={{
-            "& .MuiDataGrid-columnHeaderTitle": {
-              textOverflow: "clip",
-              whiteSpace: "break-spaces",
-              lineHeight: 1,
-            },
-          }}
-          rows={GrievanceDemo ? GrievanceDemo : []}
-          columns={GRIEVANCE_TABLE_HEAD}
-          getRowId={(row) => row.slNo}
-          pageSize={gridSize}
-          rowsPerPageOptions={[5, 10, 25, 50]}
-          onPageSizeChange={(newGridSize) => setGridSize(newGridSize)}
-        />
-      </Box>
+      <MotionWrapper directions={"bottom"}>
+        <Box>
+          <DataGrid
+            autoHeight
+            disablePagination={false}
+            loading={loading}
+            disableVirtualization
+            sx={{
+              "& .MuiDataGrid-columnHeaderTitle": {
+                textOverflow: "clip",
+                whiteSpace: "break-spaces",
+                lineHeight: 1,
+              },
+            }}
+            checkboxSelection
+            rows={allGrievancedata ? allGrievancedata : []}
+            columns={GRIEVANCE_TABLE_HEAD}
+            getRowId={(row) => row.serialNumber}
+            pageSize={gridSize}
+            rowsPerPageOptions={[5, 10, 25, 50]}
+            onPageSizeChange={(newGridSize) => setGridSize(newGridSize)}
+          />
+        </Box>
+      </MotionWrapper>
     </Wrapper>
   );
 };
@@ -52,93 +90,92 @@ export const GrievanceDemo = [
   {
     slNo: 1,
     subject: "Maths",
-    requester: "test user",
-    channel: "web  form",
-    group: "test",
-    assigned: "test user",
-    feature:
-      "Interactive tutorials, Real-world applications, Hands-on projects",
-    benefits: "Understand AI concepts, Practical skills, Career advancement",
-    longTermProgrammes: "AI Certification Program, Advanced AI Techniques",
-    ourKey: "Expert instructors, Comprehensive curriculum",
-    singleSubjectLongTerm: "Deep Learning Mastery",
-    metaTags: "AI, Artificial Intelligence, Machine Learning, Deep Learning",
-    status: "Active",
-    action: "Enroll Now",
+    requester: "Test User 1",
+    channel: "Web Form",
+    group: "Group A",
+    assigned: "User A",
+    date: "17-12-2024",
   },
   {
     slNo: 2,
-    title: "Web Development Bootcamp",
-    indexImage: "index_image_2.jpg",
-    shortDescription: "Learn full-stack web development from scratch.",
-    bannerImage: "banner_image_2.jpg",
-    detailBannerContent:
-      "Master front-end and back-end development, including HTML, CSS, JavaScript, and more.",
-    feature: "Live coding sessions, Peer-to-peer learning, Portfolio projects",
-    benefits: "Build websites, Gain practical experience, Job readiness",
-    longTermProgrammes: "Full-Stack Developer Program, Advanced JavaScript",
-    ourKey: "Industry experts, Job assistance",
-    singleSubjectLongTerm: "React Development",
-    metaTags: "Web Development, Full-Stack, HTML, CSS, JavaScript",
-    status: "Active",
-    action: "Join Now",
+    subject: "Science",
+    requester: "Test User 2",
+    channel: "Email",
+    group: "Group B",
+    assigned: "User B",
+    date: "18-12-2024",
   },
   {
     slNo: 3,
-    title: "Data Science Essentials",
-    indexImage: "index_image_3.jpg",
-    shortDescription: "An essential course for aspiring data scientists.",
-    bannerImage: "banner_image_3.jpg",
-    detailBannerContent:
-      "Learn data analysis, visualization, and machine learning with Python.",
-    feature: "Real datasets, Practical exercises, Industry projects",
-    benefits:
-      "Data analysis skills, Machine learning knowledge, Career opportunities",
-    longTermProgrammes: "Data Science Certification, Advanced Data Analysis",
-    ourKey: "Practical approach, Experienced mentors",
-    singleSubjectLongTerm: "Machine Learning with Python",
-    metaTags: "Data Science, Python, Data Analysis, Machine Learning",
-    status: "Active",
-    action: "Apply Now",
+    subject: "English",
+    requester: "Test User 3",
+    channel: "Mobile App",
+    group: "Group A",
+    assigned: "User C",
+    date: "19-12-2024",
   },
   {
     slNo: 4,
-    title: "Cybersecurity Fundamentals",
-    indexImage: "index_image_4.jpg",
-    shortDescription:
-      "Protect yourself and your organization from cyber threats.",
-    bannerImage: "banner_image_4.jpg",
-    detailBannerContent:
-      "Understand cybersecurity principles, risk management, and ethical hacking.",
-    feature: "Simulated attacks, Security tools, Case studies",
-    benefits:
-      "Enhanced security skills, Threat mitigation, Professional growth",
-    longTermProgrammes: "Cybersecurity Certification, Ethical Hacking",
-    ourKey: "Hands-on labs, Expert guidance",
-    singleSubjectLongTerm: "Network Security",
-    metaTags:
-      "Cybersecurity, Ethical Hacking, Network Security, Risk Management",
-    status: "Active",
-    action: "Start Now",
+    subject: "History",
+    requester: "Test User 4",
+    channel: "Chat",
+    group: "Group C",
+    assigned: "User D",
+    date: "20-12-2024",
   },
   {
     slNo: 5,
-    title: "Digital Marketing Mastery",
-    indexImage: "index_image_5.jpg",
-    shortDescription:
-      "Master the art of digital marketing and grow your business.",
-    bannerImage: "banner_image_5.jpg",
-    detailBannerContent:
-      "Learn SEO, content marketing, social media strategies, and PPC campaigns.",
-    feature: "Case studies, Marketing tools, Strategy planning",
-    benefits: "Increase online presence, Drive traffic, Boost sales",
-    longTermProgrammes:
-      "Digital Marketing Certification, Advanced SEO Techniques",
-    ourKey: "Marketing experts, Up-to-date curriculum",
-    singleSubjectLongTerm: "Content Marketing",
-    metaTags: "Digital Marketing, SEO, Social Media, PPC, Content Marketing",
-    status: "Active",
-    action: "Sign Up",
+    subject: "Geography",
+    requester: "Test User 5",
+    channel: "Web Form",
+    group: "Group A",
+    assigned: "User E",
+    date: "21-12-2024",
+  },
+  {
+    slNo: 6,
+    subject: "Physics",
+    requester: "Test User 6",
+    channel: "Email",
+    group: "Group B",
+    assigned: "User F",
+    date: "22-12-2024",
+  },
+  {
+    slNo: 7,
+    subject: "Chemistry",
+    requester: "Test User 7",
+    channel: "Web Form",
+    group: "Group C",
+    assigned: "User G",
+    date: "23-12-2024",
+  },
+  {
+    slNo: 8,
+    subject: "Biology",
+    requester: "Test User 8",
+    channel: "Chat",
+    group: "Group A",
+    assigned: "User H",
+    date: "24-12-2024",
+  },
+  {
+    slNo: 9,
+    subject: "Computer Science",
+    requester: "Test User 9",
+    channel: "Mobile App",
+    group: "Group B",
+    assigned: "User I",
+    date: "25-12-2024",
+  },
+  {
+    slNo: 10,
+    subject: "Economics",
+    requester: "Test User 10",
+    channel: "Web Form",
+    group: "Group C",
+    assigned: "User J",
+    date: "26-12-2024",
   },
 ];
 

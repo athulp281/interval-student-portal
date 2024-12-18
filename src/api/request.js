@@ -11,11 +11,10 @@ const request = (options) => {
   };
 
   //Assigning authorization token to the header object
-  // if (localStorage.getItem("cred")) {
-  //     let token = JSON.parse(localStorage.getItem("cred")).token;
-
-  //     Object.assign(headers, { Authorization: "Bearer " + token });
-  // }
+  if (localStorage.getItem("user")) {
+    let token = JSON.parse(localStorage.getItem("user")).token;
+    Object.assign(headers, { Authorization: "Bearer " + token });
+  }
 
   //Assigning header to options
   Object.assign(options, { headers });

@@ -23,6 +23,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "apexcharts": "^4.1.0",
     "axios": "^1.7.2",
+    "dayjs": "^1.11.13",
     "formik": "^2.4.6",
     "framer-motion": "^11.2.5",
     "jolty": "^0.6.2",
