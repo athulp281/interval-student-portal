@@ -43,6 +43,17 @@ export const getStudentsCourse = createAsyncThunk(
   }
 );
 
+export const deleteRequest = createAsyncThunk(
+  "grievance/deleteRequest",
+  async (id) => {
+    const res = await apiRequest({
+      url: `grievance/${id}`,
+      method: "delete",
+    });
+    return res;
+  }
+);
+
 const grievanceSlice = createSlice({
   name: "grievance",
   initialState: initialState,
@@ -89,6 +100,20 @@ const grievanceSlice = createSlice({
       return {
         ...state,
         studentCourses: data,
+        loading: false,
+      };
+    });
+    // -----------------deleteRequest----------------------------
+
+    builder.addCase(deleteRequest.pending, (state, action) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    });
+    builder.addCase(deleteRequest.fulfilled, (state, action) => {
+      return {
+        ...state,
         loading: false,
       };
     });

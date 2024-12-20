@@ -1,3 +1,4 @@
+import ActionMenu from "./TableHeadCompoents/ActionMenu";
 import DateField from "./TableHeadCompoents/DateField";
 import GrievanceSubTypeField from "./TableHeadCompoents/GrievanceSubTypeField";
 import GrievanceTypeField from "./TableHeadCompoents/GrievanceTypeField";
@@ -45,5 +46,11 @@ export const GRIEVANCE_TABLE_HEAD = [
     field: "assigned",
     headerName: "Assigned",
     width: 150,
+  },
+  {
+    field: "Actions",
+    headerName: "Actions",
+    width: 150,
+    renderCell: (params) => <ActionMenu {...params.row} />,
   },
 ];

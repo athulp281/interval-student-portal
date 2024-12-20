@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { PATH_DASHBOARD } from "@/route/paths";
 import { Icon } from "@iconify/react";
-// import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 // import CustomGridToolbar from "@/components/CustomGridToolbar";
 import { GRIEVANCE_TABLE_HEAD } from "./DemoTableHead";
 import dynamic from "next/dynamic";
@@ -17,12 +17,12 @@ import {
 } from "@/redux/features/grievanceSlice";
 import MotionWrapper from "@/components/MotionWrapper";
 
-const DataGrid = dynamic(
-  () => import("@mui/x-data-grid").then((mod) => mod.DataGrid),
-  {
-    ssr: false,
-  }
-);
+// const DataGrid = dynamic(
+//   () => import("@mui/x-data-grid").then((mod) => mod.DataGrid),
+//   {
+//     ssr: false,
+//   }
+// );
 
 const GrievanceView = () => {
   const dispatch = useDispatch();

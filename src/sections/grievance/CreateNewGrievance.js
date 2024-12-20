@@ -18,13 +18,17 @@ import Image from "next/image";
 import { Icon } from "@iconify/react";
 import MotionWrapper from "@/components/MotionWrapper";
 import { GrievanceType } from "./GrievancePreData";
-import { createNewGrievance } from "@/redux/features/grievanceSlice";
+import {
+  createNewGrievance,
+  getStudentsCourse,
+} from "@/redux/features/grievanceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import { PATH_DASHBOARD } from "@/route/paths";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/SimpleLoader";
-useRouter;
+import { useEffect } from "react";
+
 const CreateNewGrievance = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -66,6 +70,9 @@ const CreateNewGrievance = () => {
       });
     },
   });
+  useEffect(() => {
+    dispatch(getStudentsCourse());
+  }, []);
   return (
     <Box>
       <MotionWrapper directions={"top"}>
@@ -356,10 +363,10 @@ const CreateNewGrievance = () => {
                 <Autocomplete
                   disablePortal
                   options={studentCourses}
-                  getOptionLabel={(option) => option.courseName}
-                  isOptionEqualToValue={(option, value) =>
-                    option.courseId === value.courseId
-                  }
+                  getOptionLabel={(option) => option?.courseName}
+                  isOptionEqualToValue={(option, value) => {
+                    option?.courseId === value.courseId;
+                  }}
                   // sx={{ width: 300 }}
                   onChange={(e, option) => {
                     if (option) {

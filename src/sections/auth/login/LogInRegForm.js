@@ -20,11 +20,13 @@ import { PATH_DASHBOARD, PATH_AUTH } from "@/route/paths";
 import { useFormik, Form, FormikProvider } from "formik";
 import { usePathname, useRouter } from "next/navigation";
 import { login } from "@/redux/features/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
+import MainLoader from "@/components/MainLoader";
 
 const LogInRegForm = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const { loading } = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const smUp = useResponsive("up", "sm");
 
@@ -347,21 +349,25 @@ const LogInRegForm = () => {
                   variants={variants}
                 >
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <Button
-                      fullWidth
-                      type="submit"
-                      sx={{
-                        color: "white",
-                        background: `linear-gradient(to bottom, #0089d0 0%, #0089d0 10%, #a125c2 100%)`,
-                        borderRadius: 3,
-                        mt: 2,
-                        py: 1.5,
-                        width: "40%",
-                      }}
-                    >
-                      <Icon icon="svg-spinners:blocks-shuffle-3" />
-                      Sign Up
-                    </Button>
+                    {loading ? (
+                      <MainLoader />
+                    ) : (
+                      <Button
+                        fullWidth
+                        type="submit"
+                        sx={{
+                          color: "white",
+                          background: `linear-gradient(to bottom, #0089d0 0%, #0089d0 10%, #a125c2 100%)`,
+                          borderRadius: 3,
+                          mt: 2,
+                          py: 1.5,
+                          width: "40%",
+                        }}
+                      >
+                        <Icon icon="svg-spinners:blocks-shuffle-3" />
+                        Sign Up
+                      </Button>
+                    )}
                   </Box>
                 </motion.div>
               </Stack>
