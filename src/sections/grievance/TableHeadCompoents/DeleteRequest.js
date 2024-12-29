@@ -23,6 +23,7 @@ const DeleteRequest = ({ id, handleCloses }) => {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const { loading } = useSelector((state) => state.grievance);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -78,7 +79,7 @@ const DeleteRequest = ({ id, handleCloses }) => {
               width="24"
               height="24"
             />{" "}
-            Delete
+            {loading ? "Please wait..." : "Delete"}
           </Button>
         </DialogActions>
       </Dialog>

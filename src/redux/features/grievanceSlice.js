@@ -53,6 +53,17 @@ export const deleteRequest = createAsyncThunk(
     return res;
   }
 );
+export const updateGrievance = createAsyncThunk(
+  "grievance/updateGrievance",
+  async (data) => {
+    const res = await apiRequest({
+      url: `grievance/${data.id}`,
+      method: "patch",
+      data: data,
+    });
+    return res;
+  }
+);
 
 const grievanceSlice = createSlice({
   name: "grievance",
@@ -112,6 +123,20 @@ const grievanceSlice = createSlice({
       };
     });
     builder.addCase(deleteRequest.fulfilled, (state, action) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    });
+    // ---------------updateGrievance------------------------------
+
+    builder.addCase(updateGrievance.pending, (state, action) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    });
+    builder.addCase(updateGrievance.fulfilled, (state, action) => {
       return {
         ...state,
         loading: false,

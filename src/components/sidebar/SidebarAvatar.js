@@ -2,6 +2,7 @@ import { Avatar, Box, Link, Typography, styled } from "@mui/material";
 import React from "react";
 
 export const SidebarAvatar = ({ open }) => {
+  const profile = JSON.parse(localStorage.getItem("user")).user;
   const AccountStyle = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -36,7 +37,7 @@ export const SidebarAvatar = ({ open }) => {
                   fontWeight: "bolder",
                 }}
               >
-                Athul P
+                {profile?.name || ""}
               </Typography>
 
               <Typography

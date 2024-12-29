@@ -5,8 +5,9 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import DeleteRequest from "./DeleteRequest";
 import { Icon } from "@iconify/react";
+import UpdateGirevance from "./UpdateGirevance";
 
-const ActionMenu = ({ id }) => {
+const ActionMenu = ({ params }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -35,11 +36,16 @@ const ActionMenu = ({ id }) => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem>
-          <DeleteRequest id={id} handleCloses={handleClose} />
-        </MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        {anchorEl ? (
+          <Box>
+            <MenuItem>
+              <DeleteRequest id={params.id} handleCloses={handleClose} />
+            </MenuItem>
+            <MenuItem>
+              <UpdateGirevance params={params} handleClosesMenu={handleClose} />
+            </MenuItem>
+          </Box>
+        ) : null}
       </Menu>
     </Box>
   );

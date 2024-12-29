@@ -73,7 +73,6 @@ const GrievanceView = () => {
                 lineHeight: 1,
               },
             }}
-            checkboxSelection
             rows={allGrievancedata ? allGrievancedata : []}
             columns={GRIEVANCE_TABLE_HEAD}
             getRowId={(row) => row.serialNumber}

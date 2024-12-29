@@ -21,6 +21,8 @@ import { GrievanceType } from "./GrievancePreData";
 import {
   createNewGrievance,
   getStudentsCourse,
+  updateGrievance,
+  getAllGrievance,
 } from "@/redux/features/grievanceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
@@ -28,8 +30,12 @@ import { PATH_DASHBOARD } from "@/route/paths";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/SimpleLoader";
 import { useEffect } from "react";
+import useResponsive from "@/components/Hooks/useResponsive";
 
-const CreateNewGrievance = () => {
+const CreateNewGrievance = ({ params, setOpen, handleClosesMenu }) => {
+  const smUp = useResponsive("up", "sm");
+
+  const mdUp = useResponsive("up", "md");
   const router = useRouter();
   const dispatch = useDispatch();
   const { loading, studentCourses } = useSelector((state) => state.grievance);
@@ -44,25 +50,35 @@ const CreateNewGrievance = () => {
     priority: Yup.string().required("priority  is required"),
     phone: Yup.string().required("phone  is required"),
   });
+  const profile = JSON.parse(localStorage.getItem("user")).user;
+
   const formik = useFormik({
     initialValues: {
-      addNo: "",
-      name: "",
-      email: "",
-      grievenceType: "",
-      grievenceSubType: "",
-      courseEnrollmentId: "",
-      grievenceDescription: "",
-      priority: "",
-      phone: "",
+      id: params ? params.id : "",
+      addNo: profile?.admnNo || "",
+      name: profile?.name || "",
+      email: params ? params.email : profile?.email || "",
+      grievenceType: params ? params.grievanceType : "",
+      grievenceSubType: params ? params.grievanceSubType : "",
+      courseEnrollmentId: params ? params.courseId : "",
+      grievenceDescription: params ? params.description : "",
+      priority: params ? params.priority : "",
+      phone: params ? params.phone : profile?.phone || "",
     },
     validationSchema: FormSchema,
     onSubmit: (values) => {
-      dispatch(createNewGrievance(values)).then((res) => {
+      dispatch(
+        params ? updateGrievance(values) : createNewGrievance(values)
+      ).then((res) => {
         if (res.payload.status === "error") {
           enqueueSnackbar(res.payload.message, { variant: "error" });
         } else if (res.payload.status === "success") {
           router.push(PATH_DASHBOARD.grievance);
+          if (params) {
+            setOpen(false);
+            handleClosesMenu();
+            dispatch(getAllGrievance());
+          }
           enqueueSnackbar(res.payload.message, {
             variant: "success",
           });
@@ -70,6 +86,18 @@ const CreateNewGrievance = () => {
       });
     },
   });
+  useEffect(() => {
+    if (formik.values.grievenceType) {
+      const data = GrievanceType.find(
+        (item) => item.id == formik.values.grievenceType
+      );
+
+      if (data) {
+        setSubTypes(data.subTypes);
+      }
+    }
+  }, [formik.values.grievenceType]);
+
   useEffect(() => {
     dispatch(getStudentsCourse());
   }, []);
@@ -86,13 +114,13 @@ const CreateNewGrievance = () => {
             // position: "relative",
           }}
         >
-          <Stack direction={"row"} spacing={4}>
+          <Stack direction={smUp ? "row" : "column"} spacing={4}>
             <Box>
               <MotionWrapper directions={"right"} delay={1}>
                 <Typography
                   sx={{
                     fontFamily: "Space Grotesk, serif",
-                    fontSize: 50,
+                    fontSize: smUp ? 50 : 25,
                     color: "white",
                   }}
                 >
@@ -175,7 +203,7 @@ const CreateNewGrievance = () => {
       </MotionWrapper>
       <FormikProvider value={formik}>
         <Form onSubmit={formik.handleSubmit}>
-          <Box padding={5}>
+          <Box padding={params ? 1 : 5}>
             <MotionWrapper directions={"left"}>
               <Box>
                 <Typography
@@ -190,7 +218,7 @@ const CreateNewGrievance = () => {
                 </Typography>
               </Box>
             </MotionWrapper>
-            <Stack direction={"row"} spacing={2}>
+            <Stack direction={smUp ? "row" : "column"} spacing={2}>
               <MotionWrapper directions={"right"}>
                 <TextField
                   name="addNo"
@@ -260,13 +288,20 @@ const CreateNewGrievance = () => {
               </MotionWrapper>
             </Box>
             <Box pt={2}>
-              <Stack direction={"row"} spacing={2}>
+              <Stack direction={smUp ? "row" : "column"} spacing={2}>
                 <MotionWrapper directions={"bottom"}>
                   <Autocomplete
                     name="grievenceType"
                     disablePortal
                     options={GrievanceType}
                     getOptionLabel={(option) => option.name}
+                    value={
+                      formik.values.grievenceType
+                        ? GrievanceType?.find(
+                            (item) => item.id === formik.values.grievenceType
+                          )
+                        : null
+                    }
                     isOptionEqualToValue={(option, value) =>
                       option.id === value.id
                     }
@@ -310,52 +345,58 @@ const CreateNewGrievance = () => {
                     )}
                   />
                 </MotionWrapper>
-                <MotionWrapper directions={"bottom"}>
-                  <Autocomplete
-                    disablePortal
-                    options={subTypes}
-                    getOptionLabel={(option) => option.name}
-                    isOptionEqualToValue={(option, value) =>
-                      option.id === value.id
-                    }
-                    sx={{ width: "100%" }}
-                    onChange={(e, option) => {
-                      if (option) {
-                        formik.setFieldValue("grievenceSubType", option.id);
-                      } else {
-                        formik.setFieldValue("grievenceSubType", "");
+                {subTypes.length ? (
+                  <MotionWrapper directions={"bottom"}>
+                    <Autocomplete
+                      disablePortal
+                      options={subTypes}
+                      getOptionLabel={(option) => option.name}
+                      isOptionEqualToValue={(option, value) =>
+                        option.id === value.id
                       }
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="filled"
-                        name="grievenceSubType"
-                        sx={{
-                          "& .MuiFilledInput-root": {
-                            borderRadius: "25px",
-                            "&:before": {
-                              display: "none",
+                      value={
+                        subTypes?.find(
+                          (item) => item.id === formik.values.grievenceSubType
+                        ) || null
+                      }
+                      sx={{ width: "100%" }}
+                      onChange={(e, option) => {
+                        formik.setFieldValue(
+                          "grievenceSubType",
+                          option ? option.id : ""
+                        );
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="filled"
+                          name="grievenceSubType"
+                          sx={{
+                            "& .MuiFilledInput-root": {
+                              borderRadius: "25px",
+                              "&:before": {
+                                display: "none",
+                              },
+                              "&:after": {
+                                display: "none",
+                              },
                             },
-                            "&:after": {
-                              display: "none",
-                            },
-                          },
-                        }}
-                        {...params}
-                        fullWidth
-                        label="Grievance Sub Type"
-                        error={Boolean(
-                          formik.touched.grievenceSubType &&
+                          }}
+                          {...params}
+                          fullWidth
+                          label="Grievance Sub Type"
+                          error={Boolean(
+                            formik.touched.grievenceSubType &&
+                              formik.errors.grievenceSubType
+                          )}
+                          helperText={
+                            formik.touched.grievenceSubType &&
                             formik.errors.grievenceSubType
-                        )}
-                        helperText={
-                          formik.touched.grievenceSubType &&
-                          formik.errors.grievenceSubType
-                        }
-                      />
-                    )}
-                  />
-                </MotionWrapper>
+                          }
+                        />
+                      )}
+                    />
+                  </MotionWrapper>
+                ) : null}
               </Stack>
             </Box>
             <Box pt={2}>
@@ -364,19 +405,20 @@ const CreateNewGrievance = () => {
                   disablePortal
                   options={studentCourses}
                   getOptionLabel={(option) => option?.courseName}
-                  isOptionEqualToValue={(option, value) => {
-                    option?.courseId === value.courseId;
-                  }}
-                  // sx={{ width: 300 }}
+                  isOptionEqualToValue={(option, value) =>
+                    option.courseId === value.courseId
+                  }
+                  value={
+                    studentCourses.find(
+                      (item) =>
+                        item.courseId === formik.values.courseEnrollmentId
+                    ) || null
+                  }
                   onChange={(e, option) => {
-                    if (option) {
-                      formik.setFieldValue(
-                        "courseEnrollmentId",
-                        option.courseId
-                      );
-                    } else {
-                      formik.setFieldValue("courseEnrollmentId", "");
-                    }
+                    formik.setFieldValue(
+                      "courseEnrollmentId",
+                      option ? option.courseId : ""
+                    );
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -443,7 +485,7 @@ const CreateNewGrievance = () => {
               </MotionWrapper>
             </Box>
             <Box pt={2}>
-              <Stack direction={"row"} spacing={2}>
+              <Stack direction={smUp ? "row" : "column"} spacing={2}>
                 <MotionWrapper directions={"bottom"}>
                   <Autocomplete
                     disablePortal
@@ -455,6 +497,15 @@ const CreateNewGrievance = () => {
                     getOptionLabel={(option) => option.name}
                     isOptionEqualToValue={(option, value) =>
                       option.id === value.id
+                    }
+                    value={
+                      formik.values.priority
+                        ? [
+                            { id: 1, name: "LOW" },
+                            { id: 2, name: "MEDIUM" },
+                            { id: 3, name: "URGENT" },
+                          ]?.find((item) => item.id === formik.values.priority)
+                        : null
                     }
                     onChange={(e, option) => {
                       if (option) {

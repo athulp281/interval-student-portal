@@ -14,6 +14,7 @@ import { PATH_AUTH } from "@/route/paths";
 import { motion } from "framer-motion";
 
 const AppBarLogOut = () => {
+  const profile = JSON.parse(localStorage.getItem("user")).user;
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -57,9 +58,9 @@ const AppBarLogOut = () => {
               <Icon icon="ph:student" width="25" height="25" />
             </Box>
             <Typography sx={{ fontWeight: 600, fontSize: 12, pt: 0.7 }}>
-              Athul P
+              {profile?.name || ""}
             </Typography>
-            <Box sx={{ pt: 0.5, pl: 4 }}>
+            <Box sx={{ pt: 0.5, pl: 1 }}>
               <Icon icon="icon-park-outline:down" width="20" height="20" />
             </Box>
           </Stack>
