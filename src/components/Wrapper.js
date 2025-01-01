@@ -1,76 +1,109 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Page from "./page";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import { PATH_AUTH } from "@/route/paths";
+import Page from "./page";
 import Breadcrumbs from "./Breadcrumbs";
+import MainLoader from "./MainLoader";
 
-const Title = ({ title }) => {
-  function capitalizeFirstLetter(string) {
-    if (typeof string !== "string") {
-      return ""; // or handle the error appropriately
-    }
-    return string.replace(/\b\w/g, (char) => char.toUpperCase());
-  }
+const Title = React.memo(({ title }) => {
+  const formattedTitle = useMemo(
+    () =>
+      typeof title === "string"
+        ? title.replace(/\b\w/g, (char) => char.toUpperCase())
+        : "",
+    [title]
+  );
 
-  const formattedTitle = capitalizeFirstLetter(title);
-  return <Typography variant="h4">{formattedTitle}</Typography>;
-};
+  return (
+    <Typography variant="h4" component="h1">
+      {formattedTitle}
+    </Typography>
+  );
+});
 
 const Wrapper = ({ title, children, pageAction }) => {
-  const keyframesExample = {
-    hidden: { opacity: 0, x: -100 },
-    halfway: { opacity: 0.5, x: 50 },
-    visible: { opacity: 1, x: 0 },
-  };
-
   const pathname = usePathname();
   const router = useRouter();
   const [layout, setLayout] = useState(null);
-  const user =
-    typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  const [loading, setLoading] = useState(true);
+
+  const user = useMemo(
+    () => (typeof window !== "undefined" ? localStorage.getItem("user") : null),
+    []
+  );
+
   useEffect(() => {
     if (user) {
-      router.push(pathname);
       setLayout({ auth: false, dashboard: true });
+      setTimeout(() => setLoading(false), 2000); // Add 1 second delay
     } else {
-      router.replace(PATH_AUTH.login);
       setLayout({ auth: true, dashboard: false });
+      router.replace(PATH_AUTH.login);
     }
-  }, [user, router, pathname]);
+  }, [user, router]);
+
+  const animationVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, x: -50 },
+      visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+    }),
+    []
+  );
+
+  const renderBreadcrumbs = useCallback(() => <Breadcrumbs />, []);
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
-      {/* {user ? ( */}
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <motion.div
         initial="hidden"
         animate="visible"
-        variants={keyframesExample}
+        variants={animationVariants}
         style={{ width: "100%" }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box padding={2}>
-            <Box width="100%">
-              <Title title={title} />
-            </Box>
-            <Box width="100%">
-              <Breadcrumbs />
-            </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: 2,
+          }}
+        >
+          <Box sx={{ flex: 1 }}>
+            <Title title={title} />
+            {renderBreadcrumbs()}
           </Box>
-          <Box sx={{ padding: 4 }}>{pageAction}</Box>
+          {pageAction && (
+            <Box sx={{ flexShrink: 0, paddingLeft: 2 }}>{pageAction}</Box>
+          )}
         </Box>
 
-        <Box paddingLeft={1.5}>
-          <Page title={title} sx={{ width: "100%" }}>
-            {children}
-          </Page>
+        <Box sx={{ padding: 1, width: "100%" }}>
+          {loading ? (
+            <Box
+              sx={{
+                // display: "flex",
+                // justifyContent: "center",
+                // alignItems: "center",
+                height: "100%",
+                width: "100%",
+                mt: 25,
+              }}
+              s
+            >
+              <MainLoader />
+            </Box>
+          ) : (
+            <Page title={title}>{children}</Page>
+          )}
         </Box>
       </motion.div>
-      {/* ) : null} */}
     </Box>
   );
 };
 
-export default Wrapper;
+export default React.memo(Wrapper);

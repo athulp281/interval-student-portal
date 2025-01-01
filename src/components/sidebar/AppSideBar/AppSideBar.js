@@ -134,7 +134,7 @@ export default function AppSideBar({ children }) {
         <CssBaseline />
 
         <Appbar open={open} setOpen={setOpen} />
-        {smUp ? (
+        {mdUp ? (
           <Drawer variant="permanent" open={open} sx={{ overflow: "hidden" }}>
             <DrawerHeader>
               <MotionWrapper directions={"right"}>

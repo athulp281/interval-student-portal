@@ -15,13 +15,15 @@ import { useDispatch, useSelector } from "react-redux";
 import ToolTip from "../ToolTip";
 import { StudentsDetailstable } from "./StudentsDetailstable";
 import MotionWrapper from "../MotionWrapper";
+import useResponsive from "../Hooks/useResponsive";
+
 // import Loader3D from "../../../../components/Loader/Loader3D";
 const StudentProfileDetailsCard = () => {
   const leadDetailsLoading = false;
   const leadDetails = {};
 
   return (
-    <Box sx={{ width: "30%" }}>
+    <Box>
       <Paper elevation={2} sx={{ borderRadius: 3 }}>
         {leadDetailsLoading ? (
           <></>

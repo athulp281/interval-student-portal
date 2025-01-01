@@ -10,26 +10,28 @@ import {
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import useResponsive from "../Hooks/useResponsive";
+import { useSelector } from "react-redux";
 
 const StudentsDetailstable = () => {
-  const data = { OGA: "Test", leadGenerated: "10-12-2024", class: "10" };
+  const { studentProfileData, loading } = useSelector(
+    (state) => state.grievance
+  );
   const smUp = useResponsive("up", "sm");
 
   const mdUp = useResponsive("up", "md");
   const [moreInfo, setMoreInfo] = useState(false);
-  const mappableArray = Object.entries(data).filter(([key]) =>
+  const mappableArray = Object.entries(studentProfileData).filter(([key]) =>
     [
-      "OGA",
-      "leadGenerated",
-      "class",
-      "contactPerson",
-      "remarksd",
-      "syllabus",
+      "district",
+      "studentMobNo",
+      "email",
+      "studentClassId",
       "medium",
+      "syllbus",
     ].includes(key)
   );
 
-  const MoreDetails = Object.entries(data).filter(([key]) =>
+  const MoreDetails = Object.entries(studentProfileData).filter(([key]) =>
     [
       "fatherName",
       "motherName",

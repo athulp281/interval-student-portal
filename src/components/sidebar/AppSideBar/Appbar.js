@@ -10,7 +10,6 @@ import SearchBar from "../SearchBar";
 import AppBarLogOut from "./AppBarLogOut";
 import MotionWrapper from "@/components/MotionWrapper";
 
-// Styles
 const StyledPaper = styled(Paper)(({ theme }) => ({
   width: 43,
   height: "100%",
@@ -23,8 +22,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const drawerWidth = 270;
-
-// Memoized AppBar
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -47,9 +44,11 @@ const AppBar = styled(MuiAppBar, {
 const Appbar = ({ open, setOpen }) => {
   const smUp = useResponsive("up", "sm");
 
+  const mdUp = useResponsive("up", "md");
+
   useEffect(() => {
-    setOpen(smUp);
-  }, [smUp, setOpen]);
+    setOpen(mdUp);
+  }, [mdUp, setOpen]);
 
   const handleDrawerOpen = useCallback(() => {
     setOpen(true);
@@ -67,7 +66,7 @@ const Appbar = ({ open, setOpen }) => {
           justifyContent: open ? "flex-end" : "space-between",
         }}
       >
-        {smUp ? (
+        {mdUp ? (
           <IconButton
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -86,7 +85,7 @@ const Appbar = ({ open, setOpen }) => {
         ) : (
           <MobileSideBar />
         )}
-        {smUp && (
+        {mdUp && (
           <Box sx={{ mr: 2, mt: 0.3 }}>
             <MotionWrapper directions={"bottom"}>
               <SearchBar />

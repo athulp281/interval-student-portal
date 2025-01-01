@@ -7,6 +7,8 @@ const initialState = {
   data: [],
   allGrievancedata: [],
   studentCourses: [],
+  grievanceJourneyData: [],
+  studentProfileData: {},
 };
 
 export const createNewGrievance = createAsyncThunk(
@@ -60,6 +62,27 @@ export const updateGrievance = createAsyncThunk(
       url: `grievance/${data.id}`,
       method: "patch",
       data: data,
+    });
+    return res;
+  }
+);
+
+export const getGrievanceJourney = createAsyncThunk(
+  "grievance/getGrievanceJourney",
+  async (id) => {
+    const res = await apiRequest({
+      url: `grievance/journey/${id}`,
+      method: "get",
+    });
+    return res;
+  }
+);
+export const studentDetails = createAsyncThunk(
+  "grievance/studentDetails",
+  async () => {
+    const res = await apiRequest({
+      url: `grievance/details`,
+      method: "get",
     });
     return res;
   }
@@ -139,6 +162,37 @@ const grievanceSlice = createSlice({
     builder.addCase(updateGrievance.fulfilled, (state, action) => {
       return {
         ...state,
+        loading: false,
+      };
+    });
+    // -----------------getGrievanceJourney--------------------------------
+
+    builder.addCase(getGrievanceJourney.pending, (state, action) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    });
+    builder.addCase(getGrievanceJourney.fulfilled, (state, action) => {
+      const data = action.payload.data;
+      return {
+        ...state,
+        grievanceJourneyData: data,
+        loading: false,
+      };
+    });
+    // ---------------studentDetails--------------------------------
+    builder.addCase(studentDetails.pending, (state, action) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    });
+    builder.addCase(studentDetails.fulfilled, (state, action) => {
+      const data = action.payload.data;
+      return {
+        ...state,
+        studentProfileData: data,
         loading: false,
       };
     });

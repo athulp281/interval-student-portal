@@ -1,9 +1,20 @@
+import { Chip } from "@mui/material";
 import ActionMenu from "./TableHeadCompoents/ActionMenu";
 import DateField from "./TableHeadCompoents/DateField";
 import Grievancejourney from "./TableHeadCompoents/Grievancejourney";
 import GrievanceSubTypeField from "./TableHeadCompoents/GrievanceSubTypeField";
 import GrievanceTypeField from "./TableHeadCompoents/GrievanceTypeField";
 
+const handleStatus = (params) => {
+  return (
+    <Chip
+      size="small"
+      variant="contained"
+      color="primary"
+      label={params.row.status}
+    />
+  );
+};
 export const GRIEVANCE_TABLE_HEAD = [
   {
     field: "serialNumber",
@@ -13,7 +24,8 @@ export const GRIEVANCE_TABLE_HEAD = [
   {
     field: "status",
     headerName: "Status",
-    width: 150,
+    width: 250,
+    renderCell: (params) => handleStatus(params),
   },
   {
     field: "courseName",
@@ -51,8 +63,8 @@ export const GRIEVANCE_TABLE_HEAD = [
   {
     field: "Grievance Journey",
     headerName: "Grievance Journey",
-    width: 150,
-    renderCell: (params) => <Grievancejourney />,
+    width: 190,
+    renderCell: (params) => <Grievancejourney id={params.row.id} />,
   },
   {
     field: "Actions",
