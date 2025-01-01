@@ -16,6 +16,7 @@ const RecentGrievance = () => {
             if (index == 1) {
               return (
                 <Box
+                  key={index}
                   padding={2}
                   sx={{ display: "flex", justifyContent: "center" }}
                 >

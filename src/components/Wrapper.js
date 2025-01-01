@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Box, Typography, CircularProgress } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import { PATH_AUTH } from "@/route/paths";
 import Page from "./page";
@@ -23,6 +23,7 @@ const Title = React.memo(({ title }) => {
     </Typography>
   );
 });
+Title.displayName = "Title";
 
 const Wrapper = ({ title, children, pageAction }) => {
   const pathname = usePathname();
@@ -86,14 +87,10 @@ const Wrapper = ({ title, children, pageAction }) => {
           {loading ? (
             <Box
               sx={{
-                // display: "flex",
-                // justifyContent: "center",
-                // alignItems: "center",
                 height: "100%",
                 width: "100%",
                 mt: 25,
               }}
-              s
             >
               <MainLoader />
             </Box>
@@ -105,5 +102,6 @@ const Wrapper = ({ title, children, pageAction }) => {
     </Box>
   );
 };
+Wrapper.displayName = "Wrapper";
 
 export default React.memo(Wrapper);

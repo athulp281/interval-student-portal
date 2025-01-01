@@ -13,5 +13,6 @@ const GrievanceSubTypeField = memo(({ grievanceType, grievanceSubType }) => {
 
   return <Box>{subType?.name || "N/A"}</Box>;
 });
+GrievanceSubTypeField.displayName = "GrievanceSubTypeField";
 
 export default GrievanceSubTypeField;

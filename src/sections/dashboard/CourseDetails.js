@@ -63,7 +63,7 @@ const CourseDetails = () => {
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               {studentProfileData?.courseDetails?.map((item, index) => {
                 return (
-                  <Box>
+                  <Box key={index}>
                     <Stack direction={"row"} spacing={2} key={index}>
                       <Box>
                         <Icon

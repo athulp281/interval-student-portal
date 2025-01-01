@@ -19,10 +19,11 @@ const DateField = memo(({ date }) => {
         }
         label={formattedDate}
         variant="contained"
-        // color="primary"
       />
     </Box>
   );
 });
+
+DateField.displayName = "DateField";
 
 export default DateField;

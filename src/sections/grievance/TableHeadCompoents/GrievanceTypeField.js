@@ -9,5 +9,5 @@ const GrievanceTypeField = memo(({ grievanceType }) => {
 
   return <Box>{dataname?.name}</Box>;
 });
-
+GrievanceTypeField.displayName = "GrievanceTypeField";
 export default GrievanceTypeField;
